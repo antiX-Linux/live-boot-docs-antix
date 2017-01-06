@@ -1,0 +1,58 @@
+= Optimizations
+:optm-page:
+
+[[top]]
+== Faster is Better
+
+[TIP]
+.Note for Developers
+=====================================
+
+If you are creating a LiveUSB then please look at the
+link:live_usb.html#_partitioning[section about aligning partitions] on the
+page on making Live USBs.  It gives simple instructions on an easy way to get
+peak performance from a USB stick.  The instructions were developed for
+solid-state drives but the same ideas should apply to USB flash sticks as
+well. 
+
+=====================================
+
+[[boot-options]]
+== Optimization Options
+
+These options are all designed to make {antix} boot and run faster.
+
+[[lean]]
+==== cheat:lean:
+turn off some services usually not needed in a LiveCD/USB environment.
+
+// Should we list them?
+
+[[mean]]
+==== cheat:mean:
+
+Disable network connections.  One way to re-enable the network is to start
+the network service (as root):
+
+-------------
+$ /etc/init.d/networking start
+-------------
+// this works for my wired connection. Does it work for wireless too?
+
+[[toram]]
+==== cheat:toram:
+
+Copy the linuxfs file into RAM to speed up operations.  This is most useful
+if you are booting off of a LiveCD.  It can also be useful booting off of a
+LiveDVD or a LiveUSB but the speed-up will be less dramatic.  One downside is
+that the entire linuxfs file must be read at boot-time which causes a
+significant delay when booting.  The other downside is that you need to have
+enough RAM in your system to hold the entire linuxfs file as well as have
+enough left over for running the system and making changes to the file system.
+
+[[Xtralean]]
+==== cheat:Xtralean:
+
+disable even more services.
+
+// Should we list them?

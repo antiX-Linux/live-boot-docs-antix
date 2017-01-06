@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if ! [ "$1" ]; then
+    echo "usage: copy-images DEST-DIR"
+    exit
+fi
+
+dest="$1"
+
+for img in $(grep -Poh 'images/[^"]+' *.html | sort -u); do
+    subdir=$dest/${img%/*}
+    mkdir -p $subdir
+    cp $img $subdir
+done
+
+for img in $(grep -Poh 'images/[^)]+' *.css | sort -u); do
+    subdir=$dest/${img%/*}
+    mkdir -p $subdir
+    cp $img $subdir
+done
+

@@ -1,0 +1,54 @@
+
+    /antiX-12
+        vmlinuz
+        initrd.gz
+        linuxfs
+        linuxfs.base
+        linuxfs.core
+        linuxfs.md5
+
+    /antiX-12-486
+        vmlinuz
+        initrd.gz
+        linuxfs
+        linuxfs.base
+        linuxfs.core
+        linuxfs.md5
+
+    /boot/grub
+        menu.lst
+        etc ...
+
+    /boot/isolinux
+        isolinux.cfg
+        etc ...   
+
+Here are the (partial) Grub entries:
+
+---------------------------------------
+title antiX-12 Full 686
+kernel /antiX-12/vmlinuz blab=antiXlive bdir=antiX-12 
+initrd /antiX-12/initrd.gz
+
+title antiX-12 Base 686
+kernel /antiX-12/vmlinuz blab=antiXlive bdir=antiX-12 sqext=base
+initrd /antiX-12/initrd.gz
+
+title antiX-12 Core 686
+kernel /antiX-12/vmlinuz blab=antiXlive bdir=antiX-12 sqext=core
+initrd /antiX-12/initrd.gz
+
+title antiX-12-486 Full 486
+kernel /antiX-12-486/vmlinuz blab=antiXlive bdir=antiX-12-486 
+initrd /antiX-12-486/initrd.gz
+
+title antiX-12-486 Base 486
+kernel /antiX-12-486/vmlinuz blab=antiXlive bdir=antiX-12-486 sqext=base
+initrd /antiX-12-486/initrd.gz
+
+title antiX-12-486 Core 486
+kernel /antiX-12-486/vmlinuz blab=antiXlive bdir=antiX-12-486 sqext=core
+initrd /antiX-12-486/initrd.gz
+---------------------------------------
+
+

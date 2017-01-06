@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+
+my @chaps;
+while(<>) {
+    chomp;
+    m/^(===?)\s+(.*)/ or next;
+    push @chaps, { id => $1, title => $2 };
+    #print "$1 --> $2\n";
+}
+
+print <<'Header';
+{start-toc}
+
+[[toc]]
+[compact]
+Header
+
+my $found_boot_options;
+my $found_top;
+for my $chap (@chaps) {
+    print $chap->{id} eq "==" ? "* " : "**";
+
+    my $title = $chap->{title};
+    my $link  = lc "_$title";
+    if (not $found_top) {
+        $link = "under-toc";;
+        $found_top = 1;
+    }
+    elsif (not $found_boot_options and $title =~ /Options$/) {
+        $link = "boot-options";
+        $found_boot_options = 1;
+    }
+    else {
+        $link =~ s/_\+/_tt_/g;
+        $link =~ s/\+_/_tt_/g;
+        $link =~ s/'/_8217_/g;
+        $link =~ s/[^\w.]+/_/g;
+        $link =~ s/_+$//;
+    }
+
+    print " link:#$link\[$title\]\n";
+}
+
+print "\n[[under-toc]]\n";

@@ -1,0 +1,131 @@
+= Personalization Options
+:pers-page:
+
+[[top]]
+== Personalization
+
+[[boot-options]]
+=== Personalization Options
+
+// Some options in this section lack details of possible values.
+// The ones with details are considered to be complete.
+// I haven't added a trailing "=" to option entries and instead rely on
+// examples.
+
+
+When you install {antix} on a computer, you get a chance to set things
+up exactly how you want them using the {antix} Control Center or by
+simply editing particular files.  Whatever changes you make are
+retained on the file system and are there the next time you boot.
+With a LiveCD you would have to make the same changes every time you
+boot so we've provided some boot options to make personalizing the
+LiveCD a little easier.
+
+Much more powerful personalization is available through Persistence
+and/or Remastering but these require that use use a read-write device,
+like a USB stick.  If you are only using a LiveCD or LiveDVD then some
+of the options below could be useful.
+
+[[desktop]]
+==== cheat:desktop:
+Set the default desktop manager.  Normally only fluxbox, jwm, icewm, dwm and wmii come
+pre-installed.  You would have to install other desktops in before using them
+as the desktop option is useful.  Nonetheless, the choices are:
+
+[grid="none", id="desktop"]
+|======
+|cheat:desktop=dwm:                |cheat:desktop=kde:            
+|cheat:desktop=fluxbox:            |cheat:desktop=lxde:           
+|cheat:desktop=fvwm-crystal:       |cheat:desktop=openbox:        
+|cheat:desktop=gnome:              |cheat:desktop=wmii:           
+|cheat:desktop=icewm:              |cheat:desktop=xfce: 
+|cheat:desktop=jwm:                |cheat:desktop=i3:         
+|======
+
+[[dpi]]
+==== cheat:dpi:
+Set display resolution (in X-windows).  This number is supposed to correspond
+to "dots per inch".  A higher number makes the text larger and a smaller
+number makes it smaller. Think of it as "font size".  The default value is 96
+and the number usually ranges between 90 and 130. Example cheat:dpi=120:
+
+[[drvr]]
+==== cheat:drvr:
+Set the video driver to used.
+
+[[lang]]
+==== cheat:lang:
+Set the language, the time-zone, and the keyboard layout.   Choices are:
+
+[grid="none",id="lang"]
+|======
+| cheat:lang=ar: Arabic            | cheat:lang=fa: Iranian     | cheat:lang=mk: Macedonian
+| cheat:lang=au: Australia         | cheat:lang=fi: Finnish     | cheat:lang=no: Norwegian
+| cheat:lang=be-fr: Belgian-French | cheat:lang=fr: French      | cheat:lang=nl: Dutch
+| cheat:lang=be-nl: Belgian-Dutch  | cheat:lang=ga: Gaelic      | cheat:lang=nz: NZ-English
+| cheat:lang=by: Belarus           | cheat:lang=ge: Georgian    | cheat:lang=pl: Polish
+| cheat:lang=bg: Bulgaria          | cheat:lang=gr: Greek       | cheat:lang=pt: Portugese
+| cheat:lang=br: Brazil            | cheat:lang=he: Hebrew      | cheat:lang=ru: Russian
+| cheat:lang=ca: Catalan           | cheat:lang=hr: Croatian    | cheat:lang=sk: Slovak
+| cheat:lang=ch: Swiss-German      | cheat:lang=hu: Hungarian   | cheat:lang=sl: Slovene
+| cheat:lang=cn: Chinese           | cheat:lang=ie: Irish       | cheat:lang=sr: Serbian
+| cheat:lang=cs: Czech             | cheat:lang=is: Islandic    | cheat:lang=sv: Swedish
+| cheat:lang=de: German            | cheat:lang=it: Italian     | cheat:lang=tr: Turkish
+| cheat:lang=dk: Danish            | cheat:lang=ja: Japanese    | cheat:lang=tw: Chinese
+| cheat:lang=es: Spanish           | cheat:lang=ko: Korean      | cheat:lang=ua: Ukranian
+| cheat:lang=et: Estonian          | cheat:lang=lt: Lithuanian  | cheat:lang=uk: GB-English
+| cheat:lang=eu: Basque            | cheat:lang=lv: Latvian     | cheat:lang=us: US-English
+|======
+
+[[kbd]]
+==== cheat:kbd:
+Set keyboard layout
+
+[[kbopt]]
+==== cheat:kbopt:
+Set keyboard options
+
+
+[[kbdvar]]
+==== cheat:kbdvar:
+Set keyboard variant
+
+[[noRox]]
+==== cheat:noRox:
+disable Rox desktop with some icons
+
+[[tz]]
+==== cheat:tz:
+Set the timezone
+
+[[vga]]
+==== cheat:vga:
+Sets the resolution of the virtual (text) consoles.  This is almost all of the
+text you see before X-windows starts (and you see a graphical desktop).   Some
+common values are:
+
+[options="header",grid="none",id="vga"]
+|=======
+| ptab:[Decimal] | ptab:[Hex] | ptab:[Size]| ptab:[Resolution (bits)]
+| cheat:vga=771: | cheat:vga=0x303: | 800x600   |  8
+| cheat:vga=788: | cheat:vga=0x314: | 800x600   | 16
+| cheat:vga=789: | cheat:vga=0x315: | 800x600   | 24
+| cheat:vga=773: | cheat:vga=0x305: | 1024x768  |  8
+| cheat:vga=791: | cheat:vga=0x317: | 1024x768  | 16
+| cheat:vga=792: | cheat:vga=0x318: | 1024x768  | 24
+| cheat:vga=775: | cheat:vga=0x307: | 1280x1024 |  8
+| cheat:vga=794: | cheat:vga=0x31A: | 1280x1024 | 16
+| cheat:vga=795: | cheat:vga=0x31B: | 1280x1024 | 24
+|=======
+
+Examples are shown in both decimal and hex.  (+0x31B+ is the hex representation
+of +795+ decimal).  This is because if you have an odd shaped screen or a
+small screen like on a NetBook, the common vga values might not work.  In this
+case use cheat:vga=ask: and you will be shown a list of valid vga settings. If
+you only need to boot once (ha ha) just select the letter associated with the
+size and resolution you want then hit <enter>.  If you might want to boot more
+than once (very likely) then write down the code that follows the letter on
+a piece of paper.  These codes are in hex so to get them to work in the boot
+menu, you need to put "0x" (zero ex) in front like in the second column in
+the table above. ({sigh})
+

@@ -1,0 +1,149 @@
+= Index of Common Boot Options
+:idex-page:
+
+[[top]]
+== Alphabetical Index of Common Options
+
+This is an alphabetical table of many of the more commonly used boot
+options.  They are colored coded by when the option takes effect.
+The pre-bootstrap and post-bootstrap options are all kernel options.  
+The pre-bootstrap ones take effect immediately when the kernel starts
+and the post-bootstrap ones take effect when modules are loaded which
+happens right at the start of the init process, right after the
+linuxrc bootstrap.
+
+[TIP, caption="Tip"]
+===============================
+In almost every Linux system, you can find out what boot options were used
+with the command "++cat /proc/cmdline++".  If you want to see one option per
+line then do:
+----------
+for opt in $(cat /proc/cmdline); do echo $opt; done
+----------
+===============================
+
+!start_index
+
+!index-legend
+
+!:bootdev:linuxrc:[boot] the name of the device that holds the linuxfs file
+
+!:bootdir:linuxrc:[boot] the directory that holds the linuxfs file
+
+!:bootlabel:linuxrc:[boot] the label of the device that holds the linuxfs file
+
+!:bp:linuxrc:[debug] set a breakpoint in linuxrc script
+
+!:bootuuid:linuxrc:[boot] the UUID of the device that holds the linuxfs file
+
+!:check:linuxrc:[debug] check the md5 sum for linuxfs and iso files
+
+!:dark:linuxrc: make output colors darker
+
+!:db+:linuxrc:[debug] enable limited linuxrc debugging
+
+!:db-:linuxrc:[debug] disable limited linuxrc debugging
+
+!:debug:preboot:[debug] puts kernel in debug mode
+
+!:delay:linuxrc:[debug] wait "delay" seconds before looking for the linuxfs file
+
+!:desktop:antix:[personalize] which desktop manager to use 
+
+!:dpi:antix:[personalize] Set display resolution (in X-windows)
+
+!:drvr:antix:[personalize] which video driver to use
+
+!:fromhd:linuxrc:<deprecated> use cheat:bootdev: or cheat:bootlabel: or cheat:bootuuid:
+
+!:fromiso:linuxrc:<deprecated> the device containing an ISO file to boot off of
+
+!:image_dir:linuxrc:<deprecated> use cheat:bootdir:
+
+!:image_name:linuxrc:<deprecated> use cheat:sqname:
+
+!:highcolor:linuxrc: make output more colorful 
+
+!:lang:antix:[personalize] Set language
+
+!:kbd:antix:[personalize] Set keyboard layout
+
+!:kbdvar:antix:[personalize] set keyboard variant
+
+!:kbopt:antix:[personalize] set keyboard options
+
+!:lean:antix:[optimize] turn off some services usually not needed in LiveCD/USB
+
+!:lowcolor:linuxrc: make output less colorful
+
+!:mean:antix:[optimize] disable network connections
+
+!:mem:preboot:[debug] pretend system has less memory
+
+!:mirror:antix:[optimize] set apt mirror
+
+!:nocolor:linuxrc: remove all color from output
+
+!:nodeb:linuxrc:[debug] don't install .deb files from the deb/ subdirectory
+
+!:noetc:linuxrc:[debug] don't load /etc files from the etc/ subdirectory
+
+!:nohal:antix: disable hal and dbus
+
+!:nomodeset:postboot: disable all modesetting
+
+!:noremaster:linuxrc:[remaster] don't remaster even when a .new file is found
+
+!:nouveau.modeset:postboot: disable modesetting for nouveau driver
+
+!:noRox:antix:[personalize] disable Rox desktop with some icons
+
+!:noxorg:antix:[personalize] use automatic X detection
+
+!:persist:linuxrc:[persistence] set persistence options
+
+!:persistdev:linuxrc:[persistence] the device holding the persistence file(s)
+
+!:persistdir:linuxrc:[persistence] the directory holding the persistence file(s)
+
+!:persistlabel:linuxrc:[persistence] the label of the device holding the persistence file(s)
+
+!:persistretry:linuxrc:[persistence] number of times to retry mounting persist device
+
+!:persistuuid:linuxrc:[persistence] the UUID of the device holding the persistence file(s)
+
+!:pk:linuxrc:[debug] control kernel messages during bootstrap
+
+!:pki:postboot:[debug] control kernel messages at start of init
+
+!:quiet:preboot:[debug] turn off many kernel messages
+
+!:retry:linuxrc:[boot] number of times to retry mounting the boot device
+
+!:rollback:linuxrc:[remaster] return to previous version after a failed remaster
+
+!:rootdelay:preboot:[debug] wait this many seconds before booting
+
+!:rwmode:linuxrc: default mode for mounting file systems in linuxrc
+
+!:sqext:linuxrc:[boot] the extension of the linuxfs file
+
+!:sqname:linuxrc:[boot] the name of the linuxfs file [antiX/linuxfs]
+
+!:toram:linuxrc:[optimize] copy the linuxfs file into RAM to speed up operations
+
+!:tz:antix:[personalize] Set the timezone
+
+!:usb-mount:antix:[personalize] Set external devices to auto-mount when attached.
+
+!:vga:preboot:[personalize] set resolution of the virtual consoles
+
+!:verbose:linuxrc:[debug] the level of verbosity
+
+!:wait:linuxrc:[debug] wait "wait" seconds before running init
+
+!:Xtralean:antix:[optimize] disable even more services
+
+!end_index
+
+

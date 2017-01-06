@@ -1,0 +1,174 @@
+= Booting antiX
+:boot-page:
+
+{start-toc}
+
+[[toc]]
+[compact]
+*  link:#under-toc[Booting antiX]
+*  link:#_what_8217_s_new[What's New]
+*  link:#boot-options[Basic Booting Boot Options]
+** link:#_specify_the_boot_device[Specify the boot device]
+** link:#_the_name_and_location_of_the_squashfs_file[The name and location of the squashfs file]
+** link:#_try_try_again[Try, Try Again]
+
+[[under-toc]]
+== Booting antiX
+{top}
+
+Assuming a gloss:boot_loader[boot loader] (such as Grub) is installed and
+configured correctly then just three files are needed in order to boot {antix}
+Live Media (liveCD, LiveUSB, etc):
+
+===== +vmlinuz+
+
+A compressed Linux kernel.
+
+===== +initrd.gz+
+A small compressed file system that contains the gloss:linuxrc  bootstrap
+script and a limited toolkit usually supplied by
+link:http://www.busybox.net/[BusyBox].
+
+===== +linuxfs+
+A complete Linux filesystem in a single compressed gloss:squashfs[squashfs
+file].  Traditionally this file was located at +/antiX/antiX+ in the
+gloss:ISO_image[ISO file.]  The name has been changed to linuxfs so it is now
+found at +/antiX/linuxfs+.  The official {antix} ISO files will contain a
+symlink at +/antiX/antiX+ that links to the linuxfs file. 
+
+
+The boot loader handles finding the first two files so usually most of the pain
+and aggravation in the past has involved the simple task of finding the
+linuxfs file.  The previous linuxrc script would scan through all possible
+devices and partitions, mounting each one and looking for a file at
++/antiX/antiX+.  Unfortunately, it sometimes takes a few extra seconds for a
+USB stick to show up as a device so people were often adding an extra delay
+with cheat:rootdelay=10: to give time for a LiveUSB device to settle.  In
+addition, several extra ad hoc delays were embedded in the linuxrc script to
+try to address the settling problem.  Booting was slower for everyone and was
+often unreliable.
+
+== What's New
+{top}
+
+The new script handles this all differently.  First, we have a
+cheat:bootlabel: option that allows you to boot off of a specifically labeled
+partition.  This will make LiveUSB booting more reliable across different
+machines because the device name of a USB stick will changes depending on the
+number and type of internal drivers but the label stays the same.  Next,
+regardless of how the boot device is specified (or if we have to scan for it),
+if we fail to find the linuxfs file the first time then we try cheat:retry:
+more times, pausing one second between tries.  The user doesn't have to guess
+how large a cheat:rootdelay: to use and they don't have to wait watching a
+blank screen hoping for something to happen.
+
+We also scan SCSI hard drives in reverse alphabetical order.  Since USB
+devices tend to have a higher letters (+/dev/sdb+ is higher than +/dev/sda+)
+than internal drives, we usually find USB sticks faster when we are
+scanning and we will needlessly mount partitions on internal drives less
+often.
+
+
+[[boot-options]]
+== Basic Booting Boot Options
+{top}
+
+All of the boot* options: cheat:bootdev:, cheat:bootdir:, cheat:bootlabel:,
+and cheat:bootuuid: can be abbreviated by replacing "boot" with "b".  So
+cheat:bdev:, cheat:bdir:, cheat:blabel:, and cheat:buuid: are all valid
+parameters.  In addition, cheat:blabel: can be further abbreviated to
+cheat:blab:.
+
+Basic booting involves specifying the boot device and specifying the name
+of the linuxfs file and the directory it is in.
+
+=== Specify the boot device
+{top}
+
+These parameters allow you to specify which device holds the squashfs file by
+device name, device label, or device UUID.  If none of these options are
+specified then we revert to scanning all possible block devices.
+
+[[bootdev]]
+==== cheat:bootdev:
+the name of the device that holds the linuxfs file.  This is similar to the
+old cheat:fromhd=: parameter except this version allows you to omit the
+leading "/dev/" when specifying a device so cheat:bootdev=sdb1: does the same
+thing as cheat:bootdev=/dev/sdb1:.  Abbreviation: cheat:blab=sdb1:.
+
+[[bootlabel]]
+==== cheat:bootlabel:
+the label of the device that holds the linuxfs file.  In other words
+cheat:bootlabel=LiveUSB: does what cheat:fromhd=LABEL=LiveUSB: was expected to
+do (but didn't).  Abbreviations: cheat:blabel:, cheat:blab:.
+
+[[bootuuid]]
+==== cheat:bootuuid:
+the UUID of the device that holds the linuxfs file  Abbreviation:
+cheat:buuid.
+
+
+=== The name and location of the linuxfs file
+{top}
+
+[[bootdir]]
+==== cheat:bootdir:
+The directory that holds the linuxfs file.  The default is +antiX+ which is
+fine for a LiveCD or LiveDVD but is inadequate for LiveUSBs and LiveHDs.  The
+problem is that there can easily be more than one /antiX/antiX file or more
+than one /antiX/linuxfs file if someone has done any frugal installs in the
+past.  The device scanning stops at the first device that has the desired
+directory/file even if it is the wrong one.  If we simply include the antiX
+version number in the cheat:bootdir: for LiveUSBs and LiveHDs then a number of
+potential problems are neatly avoided.  The cheat:image_dir: option is still
+available.  It does the same things as bootdir but is deprecated.
+
+[[sqname]]
+==== cheat:sqname:
+the name of the linuxfs file.  The default is now +linuxfs+.  It used to be
++antiX+.  There is usually no need to change this name but you are free to do
+so if you want.   The cheat:image_name: option is still available.  It does
+the same things as cheat:sqname: but is deprecated.
+
+
+[[sqext]]
+==== cheat:sqext:
+the extension of the linuxfs file This is an extension that is tacked onto
+the end of the linuxfs name.  so cheat:sqext=xx: does the same thing as
+cheat:sqname=linuxfs.xx:. {note} this option (as well as any extension on the
+linuxfs file name) is incompatible with remastering on filesystems that are
+restricted to 8.3 file names.
+
+
+=== Try, Try Again
+{top}
+
+There are now four different places you can add delays to the boot process.
+All of them default to zero except cheat:retry:.  Usually cheat:retry: is the
+only one that is needed.  Occasionally, cheat:rootdelay: may be needed but
+cheat:delay: and cheat:wait: should almost never be needed.
+
+[[retry]]
+==== cheat:retry:
+Number of times to retry mounting the boot device, waiting one second between
+tries.  This replaces cheat:rootdelay: for many (but not all) cases.  Usually,
+if the boot device is not found after the default number of retries, there is
+a configuration problem and no amount of retries will fix it. Default: 9.
+
+[[rootdelay]]
+==== cheat:rootdelay:
+Delay this many seconds before looking for the +initrd.gz+ file.  If the
+welcome:[] message is not seen, then try using cheat:rootdelay=10: or
+cheat:rootdelay=20:.  If the welcome message is seen then there is no need for
+a cheat:rootdelay:.  
+
+[[delay]]
+==== cheat:delay:
+Wait this many seconds before starting to look for the +linuxfs+ file.  This
+should seldom, if ever, be needed. Usually, it is better (and faster) to rely
+on cheat:retry: instead.
+
+[[wait]]
+==== cheat:wait:
+Wait this many seconds after the bootstrap is complete before starting init.
+

@@ -1,0 +1,208 @@
+= Tips and Techniques for creating LiveUSBs
+:lusb-page:
+
+
+{start-toc}
+
+[[toc]]
+[compact]
+*  link:#under-toc[Creating antiX LiveUSBs]
+** link:#_advantages[Advantages]
+** link:#_disadvantages[Disadvantages ]
+*  link:#_why_re_invent_the_wheel[Why re-invent the wheel?]
+** link:#_game_plan[Game Plan]
+** link:#_example[Example]
+*  link:#_adding_goodies[Adding Goodies]
+** link:#_md5_checksums[MD5 Checksums]
+** link:#_remastering[Remastering]
+** link:#_persistent_root_and_home[Persistent root and home]
+*  link:#_gory_details[Gory Details]
+** link:#_partitions_and_file_systems[Partitions and File Systems]
+** link:#_copying_files[Copying Files]
+** link:#_installing_grub[Installing Grub]
+
+[[under-toc]]
+== Creating antiX LiveUSBs
+{top}
+
+tl;dr:
+
+* Label the boot partition and use cheat:bootlabel: 
+* Align your partitions and use large block sizes
+* Use a boot directory containing the {antix} version in its name
+* Leave space for remastering and/or root and home persistence
+
+=== Advantages
+{top}
+
+A LiveUSB has many advantages over a LiveCD:
+
+[compact]
+* It boots much faster
+* It is smaller and more rugged
+* It usually has a much larger capacity
+* You can write to it so you can have persistence and remastering
+* You can have multiple partitions, including swap
+* You can have several different versions on the same USB stick
+
+=== Disadvantages 
+{top}
+
+But there are some disadvantages as well:
+
+[compact]
+* A LiveCD is read-only so it can be more secure than a LiveUSB
+* Many older computers can't boot from a USB stick but they can boot from a CD
+
+== Why re-invent the wheel?
+{top}
+
+Many tools already exist to create a LiveUSB from a LiveCD iso image.  Why
+don't we just use the existing tools and be done with it?  The answer is
+because the existing tools don't let you take advantage of the new features
+that a LiveUSB makes possible, in particular: persistence, remastering and
+multiple operating systems.  In addition, it is now possible to make LiveUSBs
+that boot more reliably.
+
+
+=== Game Plan
+{top}
+
+The basic idea is to do a frugal install on a single large partition with the
+three basic files (vmlinuz, initrd.gz, and linuxfs) in a single directory
+that is labeled by the {antix} version and kernel type (486 or 686).  In
+addition, we label this partition so the bootstrap program doesn't have to go
+searching for it.  I like to use an ext2 or ext3 filesystem although it is
+possible to use a fat32 (or other) filesystem. 
+
+[compact]
+* Do a "Frugal Install" by copying the linuxfs file
+* Put all three boot files in the same directory labeled by OS and version
+* Add a label to the boot partition
+
+=== Example
+{top}
+
+In this example we will put three different versions of {antix} (12 686 full,
+12 686 base, and 12 486 core) on the same USB stick. follow the convention
+that "686" and "full" are defaults and thus can be omitted from the directory
+names.  Here is the file layout on the boot partition:
+
+    /antiX-12
+        vmlinuz
+        initrd.gz
+        linuxfs
+
+    /antiX-12-base
+        vmlinuz
+        initrd.gz
+        linuxfs
+
+    /antiX-12-core-486
+        vmlinuz
+        initrd.gz
+        linuxfs
+
+    /boot/grub/
+        menu.lst
+        etc ...
+    
+    /boot/isolinux
+        isolinux.cfg
+        etc ...   
+
+Here are the three (partial) Grub entries:
+
+---------------------------------------
+title antiX-12 Full 686
+kernel /antiX-12/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12/initrd.gz
+
+title antiX-12 Base 686
+kernel /antiX-12-base/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12-base/initrd.gz
+
+title antiX-12 Core 486
+kernel /antiX-12-core-486/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12-core-486/initrd.gz
+---------------------------------------
+
+I've used abbreviated versions of cheat:bootdir: (cheat:bdir:) and
+cheat:bootlabel: (cheat:blab:).  You will generally need and want other boot
+parameters. 
+
+
+== Adding Goodies
+{top}
+
+=== MD5 Checksums
+{top}
+
+We will perform an optional md5sum check on files in the directory containing
+the linuxfs file and files in the directory containing the ISO file (if
+the cheat:fromiso: option is used).  For every file you want checked, make
+a second fle with the +.md5+ extension tacked on to the end of the file name
+containing the md5 checksum.  For example:
+
+--------------------
+# md5sum linuxfs > linuxfs.md5
+--------------------
+
+Typically, this will only be used for the linuxfs file and/or the ISO file
+but we'll check every file that has a md5 checksum file.  Since this check
+will delay the boot process, we only perform the check of the cheat:check:
+boot parameter was given.  You can create a Grub menu entry that enables this
+option if you want.
+
+=== Remastering
+{top}
+
+The only thing the LiveUSB creator has to do to enable live-remastering is to
+make sure there is enough room on the boot partition for another linuxfs
+file.  The standard antiX-12 linuxfs files range in size from 110 Meg to 670
+Meg.  The size of a new linuxfs file will depend on the size of the original
+linuxfs file and also on how much has been added or subtracted.
+
+If the file system on the gloss:boot_partition[boot partition] handles
+symlinks then you may want to name the linuxfs file either +linuxfs.00+ or
++linuxfs.orig+ and create a symlink to it called +linuxfs+:
+
+--------------------
+# ln -s linuxfs.00 linuxfs
+--------------------
+
+This will make it easier to keep track of which linuxfs file is which in the
+case when there is repeated remastering and the user wants to keep the
+previous versions either as backups or as snapshots.
+
+
+=== Persistent root and home
+{top}
+
+== Gory Details
+{top}
+
+=== Partitioning
+{top}
+
+// alignment  
+
+  # mkfs.ext4 -q -m 0 -O ^has_journal -L LiveUSB -N 400 /dev/sdb1 
+
+=== Copying Files
+{top}
+
+// ???
+
+=== Installing Grub
+{top}
+
+// Install on both mbr and on boot partition
+
+  # grub
+  find /boot/memtest
+  root (hd2,0)
+  setup (hd2)
+  setup (hd2,0)
+  quit
+

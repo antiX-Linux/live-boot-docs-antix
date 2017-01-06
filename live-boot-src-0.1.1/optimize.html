@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Optimizations</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="optimize.html">Optimize</a></td><td>&#187;</td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Optimizations</div>
+</div>
+<div id="body-text">
+<div class="sect1">
+<h2 id="top">Faster is Better</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">
+<div class="title">Note for Developers</div>
+<div class="paragraph"><p>If you are creating a LiveUSB then please look at the
+<a href="live_usb.html#_partitioning">section about aligning partitions</a> on the
+page on making Live USBs.  It gives simple instructions on an easy way to get
+peak performance from a USB stick.  The instructions were developed for
+solid-state drives but the same ideas should apply to USB flash sticks as
+well.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="boot-options">Optimization Options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>These options are all designed to make <span class="antix-text">anti<span class="antix-x">X</span></span> boot and run faster.</p></div>
+<div class="sect3">
+<h4 id="lean"><span class="cheat">lean</span></h4>
+<div class="paragraph"><p>turn off some services usually not needed in a LiveCD/USB environment.</p></div>
+<p><span class="comment"> Should we list them?</span></p>
+</div>
+<div class="sect3">
+<h4 id="mean"><span class="cheat">mean</span></h4>
+<div class="paragraph"><p>Disable network connections.  One way to re-enable the network is to start
+the network service (as root):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ /etc/init.d/networking start</tt></pre>
+</div></div>
+<p><span class="comment"> this works for my wired connection. Does it work for wireless too?</span></p>
+</div>
+<div class="sect3">
+<h4 id="toram"><span class="cheat">toram</span></h4>
+<div class="paragraph"><p>Copy the linuxfs file into RAM to speed up operations.  This is most useful
+if you are booting off of a LiveCD.  It can also be useful booting off of a
+LiveDVD or a LiveUSB but the speed-up will be less dramatic.  One downside is
+that the entire linuxfs file must be read at boot-time which causes a
+significant delay when booting.  The other downside is that you need to have
+enough RAM in your system to hold the entire linuxfs file as well as have
+enough left over for running the system and making changes to the file system.</p></div>
+</div>
+<div class="sect3">
+<h4 id="Xtralean"><span class="cheat">Xtralean</span></h4>
+<div class="paragraph"><p>disable even more services.</p></div>
+<p><span class="comment"> Should we list them?</span></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:59 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

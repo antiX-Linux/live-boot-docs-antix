@@ -1,0 +1,77 @@
+= Guide to antiX LiveCDs and LiveUSBs
+:home-page:
+
+[[top]]
+== Audience
+
+The intended audience for this guide includes:
+
+[[audience]]
+[compact]
+* People who write scripts for frugal installs and LiveUSBs
+* People who will write tools for user to access persistence and live-remastering
+* Developers who want to use the new {antix} linuxrc with other distributions
+* Adventurous and/or curious beta-testers
+
+This is meant to be the definitive guide to all the features and options in
+the new linuxrc bootstrap script.  It probably contains way too much
+information for most end-users, especially newcomers.  Ideally, this guide
+will be augmented with information for end users, or a second guide will be
+created that is specifically designed for end users.
+
+
+== What's New?
+
+The linuxrc bootstrap script (that lives inside the +initrd.gz+ file) was
+almost totally rewritten.  We now use a non-ancient version of gloss:BusyBox
+(which, combined with more modern Linux kernels) gives us access to new and
+better tools.  The Knoppix linuxrc script provided great inspiration for a lot
+of this.
+
+Some of the more prominent new features include:
+
+[[whats-new]]
+
+==== Faster, more robust booting
+
+Previously the cheat:rootdelay: option was used and suggested as a fix for when
+linuxrc is unable to find the squashfs program and the user is dropped to a
+limited shell.  With the new linuxrc the rootdelay option should only be needed
+if the: welcome:[] message does not appear.   In addition, you can now specify
+the boot partition by disk-label or by disk-UUID.  There should be fewer
+failures to boot Live Media and when a boot does fail, the steps to fix it
+should be easy and straightforward.
+
+
+==== Better and faster root persistence
+
+Root and home persistence files can now reside on the boot device, the same
+device that holds the linuxfs file.  This means you can create a full featured
+LiveUSB (or LiveHD) using only one partition even with persistence and
+live-remastering.  We can also scan all read-write devices for persistence
+files which makes it easy to add persistence to a liveCD as long as there is
+some read-write partition available to hold the persistence file(s).
+
+==== Integrated md5 checking
+
+If the Live Media creator (person or program) adds .md5 files in the same
+directory as the linuxfs file or the same directory as the .iso file (in
+fromiso mode) then if the link:debug.html#check[cheat:check:] boot parameter
+is given, every file that has a matching .md5 file will be checked and the
+boot will be interrupted if any check fails. 
+
+==== Live remastering
+
+Remastering involves (perhaps among other things) the creation of a new
+linuxfs file that reflects change that have been made to the system (usually
+the addition or deletion of packages).  We can now offer users "one click"
+live remastering (for LiveUSBs and LiveHDs) that will create a new linuxfs
+file at the touch of a button and automatically use that linuxfs file on the
+next reboot.  The user will always have the option to rollback the change
+even if the new linuxfs file is corrupted and fails to boot.
+
+==== Ejecting LiveCD
+
+And, of course, we also fixed the problem with ejecting the LiveCD.
+
+

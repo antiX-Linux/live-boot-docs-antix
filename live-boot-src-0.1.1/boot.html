@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Booting antiX</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="boot.html">Booting</a></td><td>&#187;</td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Booting antiX</div>
+</div>
+<div id="body-text">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><div class="start-toc">On this page:</div></p></div>
+<div class="ulist compact" id="toc"><ul>
+<li>
+<p>
+<a href="#under-toc">Booting antiX</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_what_8217_s_new">What&#8217;s New</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#boot-options">Basic Booting Boot Options</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_specify_the_boot_device">Specify the boot device</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_the_name_and_location_of_the_squashfs_file">The name and location of the squashfs file</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_try_try_again">Try, Try Again</a>
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-toc">Booting antiX</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Assuming a <a href="glossary.html#boot_loader" class="gloss-ref">
+boot loader
+</a> (such as Grub) is installed and
+configured correctly then just three files are needed in order to boot <span class="antix-text">anti<span class="antix-x">X</span></span>
+Live Media (liveCD, LiveUSB, etc):</p></div>
+<div class="sect4">
+<h5 id="_tt_vmlinuz_tt"><tt>vmlinuz</tt></h5>
+<div class="paragraph"><p>A compressed Linux kernel.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_tt_initrd_gz_tt"><tt>initrd.gz</tt></h5>
+<div class="paragraph"><p>A small compressed file system that contains the <a href="glossary.html#linuxrc" class="gloss-ref">
+linuxrc
+</a>  bootstrap
+script and a limited toolkit usually supplied by
+<a href="http://www.busybox.net/">BusyBox</a>.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_tt_linuxfs_tt"><tt>linuxfs</tt></h5>
+<div class="paragraph"><p>A complete Linux filesystem in a single compressed <a href="glossary.html#squashfs" class="gloss-ref">
+squashfs
+file
+</a>.  Traditionally this file was located at <tt>/antiX/antiX</tt> in the
+<a href="glossary.html#ISO_image" class="gloss-ref">
+ISO file.
+</a>  The name has been changed to linuxfs so it is now
+found at <tt>/antiX/linuxfs</tt>.  The official <span class="antix-text">anti<span class="antix-x">X</span></span> ISO files will contain a
+symlink at <tt>/antiX/antiX</tt> that links to the linuxfs file.</p></div>
+<div class="paragraph"><p>The boot loader handles finding the first two files so usually most of the pain
+and aggravation in the past has involved the simple task of finding the
+linuxfs file.  The previous linuxrc script would scan through all possible
+devices and partitions, mounting each one and looking for a file at
+<tt>/antiX/antiX</tt>.  Unfortunately, it sometimes takes a few extra seconds for a
+USB stick to show up as a device so people were often adding an extra delay
+with <span class="cheat">rootdelay=10</span> to give time for a LiveUSB device to settle.  In
+addition, several extra ad hoc delays were embedded in the linuxrc script to
+try to address the settling problem.  Booting was slower for everyone and was
+often unreliable.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_8217_s_new">What&#8217;s New</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The new script handles this all differently.  First, we have a
+<span class="cheat">bootlabel</span> option that allows you to boot off of a specifically labeled
+partition.  This will make LiveUSB booting more reliable across different
+machines because the device name of a USB stick will changes depending on the
+number and type of internal drivers but the label stays the same.  Next,
+regardless of how the boot device is specified (or if we have to scan for it),
+if we fail to find the linuxfs file the first time then we try <span class="cheat">retry</span>
+more times, pausing one second between tries.  The user doesn&#8217;t have to guess
+how large a <span class="cheat">rootdelay</span> to use and they don&#8217;t have to wait watching a
+blank screen hoping for something to happen.</p></div>
+<div class="paragraph"><p>We also scan SCSI hard drives in reverse alphabetical order.  Since USB
+devices tend to have a higher letters (<tt>/dev/sdb</tt> is higher than <tt>/dev/sda</tt>)
+than internal drives, we usually find USB sticks faster when we are
+scanning and we will needlessly mount partitions on internal drives less
+often.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="boot-options">Basic Booting Boot Options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>All of the boot* options: <span class="cheat">bootdev</span>, <span class="cheat">bootdir</span>, <span class="cheat">bootlabel</span>,
+and <span class="cheat">bootuuid</span> can be abbreviated by replacing "boot" with "b".  So
+<span class="cheat">bdev</span>, <span class="cheat">bdir</span>, <span class="cheat">blabel</span>, and <span class="cheat">buuid</span> are all valid
+parameters.  In addition, <span class="cheat">blabel</span> can be further abbreviated to
+<span class="cheat">blab</span>.</p></div>
+<div class="paragraph"><p>Basic booting involves specifying the boot device and specifying the name
+of the linuxfs file and the directory it is in.</p></div>
+<div class="sect2">
+<h3 id="_specify_the_boot_device">Specify the boot device</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>These parameters allow you to specify which device holds the squashfs file by
+device name, device label, or device UUID.  If none of these options are
+specified then we revert to scanning all possible block devices.</p></div>
+<div class="sect3">
+<h4 id="bootdev"><span class="cheat">bootdev</span></h4>
+<div class="paragraph"><p>the name of the device that holds the linuxfs file.  This is similar to the
+old <span class="cheat">fromhd=</span> parameter except this version allows you to omit the
+leading "/dev/" when specifying a device so <span class="cheat">bootdev=sdb1</span> does the same
+thing as <span class="cheat">bootdev=/dev/sdb1</span>.  Abbreviation: <span class="cheat">blab=sdb1</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="bootlabel"><span class="cheat">bootlabel</span></h4>
+<div class="paragraph"><p>the label of the device that holds the linuxfs file.  In other words
+<span class="cheat">bootlabel=LiveUSB</span> does what <span class="cheat">fromhd=LABEL=LiveUSB</span> was expected to
+do (but didn&#8217;t).  Abbreviations: <span class="cheat">blabel</span>, <span class="cheat">blab</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="bootuuid"><span class="cheat">bootuuid</span></h4>
+<div class="paragraph"><p>the UUID of the device that holds the linuxfs file  Abbreviation:
+cheat:buuid.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_name_and_location_of_the_linuxfs_file">The name and location of the linuxfs file</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="sect3">
+<h4 id="bootdir"><span class="cheat">bootdir</span></h4>
+<div class="paragraph"><p>The directory that holds the linuxfs file.  The default is <tt>antiX</tt> which is
+fine for a LiveCD or LiveDVD but is inadequate for LiveUSBs and LiveHDs.  The
+problem is that there can easily be more than one /antiX/antiX file or more
+than one /antiX/linuxfs file if someone has done any frugal installs in the
+past.  The device scanning stops at the first device that has the desired
+directory/file even if it is the wrong one.  If we simply include the antiX
+version number in the <span class="cheat">bootdir</span> for LiveUSBs and LiveHDs then a number of
+potential problems are neatly avoided.  The <span class="cheat">image_dir</span> option is still
+available.  It does the same things as bootdir but is deprecated.</p></div>
+</div>
+<div class="sect3">
+<h4 id="sqname"><span class="cheat">sqname</span></h4>
+<div class="paragraph"><p>the name of the linuxfs file.  The default is now <tt>linuxfs</tt>.  It used to be
+<tt>antiX</tt>.  There is usually no need to change this name but you are free to do
+so if you want.   The <span class="cheat">image_name</span> option is still available.  It does
+the same things as <span class="cheat">sqname</span> but is deprecated.</p></div>
+</div>
+<div class="sect3">
+<h4 id="sqext"><span class="cheat">sqext</span></h4>
+<div class="paragraph"><p>the extension of the linuxfs file This is an extension that is tacked onto
+the end of the linuxfs name.  so <span class="cheat">sqext=xx</span> does the same thing as
+<span class="cheat">sqname=linuxfs.xx</span>. <span class="note">Note:</span> this option (as well as any extension on the
+linuxfs file name) is incompatible with remastering on filesystems that are
+restricted to 8.3 file names.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_try_try_again">Try, Try Again</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>There are now four different places you can add delays to the boot process.
+All of them default to zero except <span class="cheat">retry</span>.  Usually <span class="cheat">retry</span> is the
+only one that is needed.  Occasionally, <span class="cheat">rootdelay</span> may be needed but
+<span class="cheat">delay</span> and <span class="cheat">wait</span> should almost never be needed.</p></div>
+<div class="sect3">
+<h4 id="retry"><span class="cheat">retry</span></h4>
+<div class="paragraph"><p>Number of times to retry mounting the boot device, waiting one second between
+tries.  This replaces <span class="cheat">rootdelay</span> for many (but not all) cases.  Usually,
+if the boot device is not found after the default number of retries, there is
+a configuration problem and no amount of retries will fix it. Default: 9.</p></div>
+</div>
+<div class="sect3">
+<h4 id="rootdelay"><span class="cheat">rootdelay</span></h4>
+<div class="paragraph"><p>Delay this many seconds before looking for the <tt>initrd.gz</tt> file.  If the
+<span class="welcome">Welcome to <span class="to-antix">AntiX</span>!</span> message is not seen, then try using <span class="cheat">rootdelay=10</span> or
+<span class="cheat">rootdelay=20</span>.  If the welcome message is seen then there is no need for
+a <span class="cheat">rootdelay</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="delay"><span class="cheat">delay</span></h4>
+<div class="paragraph"><p>Wait this many seconds before starting to look for the <tt>linuxfs</tt> file.  This
+should seldom, if ever, be needed. Usually, it is better (and faster) to rely
+on <span class="cheat">retry</span> instead.</p></div>
+</div>
+<div class="sect3">
+<h4 id="wait"><span class="cheat">wait</span></h4>
+<div class="paragraph"><p>Wait this many seconds after the bootstrap is complete before starting init.</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:55 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

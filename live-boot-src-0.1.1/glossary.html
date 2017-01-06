@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Glossary</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="glossary.html">Glossary</a></td><td>&#187;</td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Glossary</div>
+</div>
+<div id="body-text">
+<div class="sect1">
+<h2 id="top">Glossary of Terms</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>These are some technical terms used throughout this guide.</p></div>
+<div class="sect3">
+<h4 id="antiX">antiX</h4>
+<div class="paragraph"><p>Pronounced like the word <em>antics</em>, which means playful behavior.  <span class="antix-text">anti<span class="antix-x">X</span></span> is a
+fast, lightweight and easy to install Linux live CD distribution based on
+Debian Testing for Intel-AMD x86 compatible system.
+&#91;<a href="http://antix.mepis.org">Home&nbsp;page</a>&#93;.</p></div>
+</div>
+<div class="sect3">
+<h4 id="AUFS">AUFS</h4>
+<div class="paragraph"><p>Another Union File System.  It combines a read-only file system (often
+linuxfs) with a read-write file system (often tmpfs) so that the bulk
+of the storage is (usually) taken care of by the read-only system while
+all changes are stored in the read-write system.
+<span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=aufs&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="boot_loader">boot loader</h4>
+<div class="paragraph"><p>A small program that runs right after the power-on self test
+(POST) that then loads a boot strap program or the operating system you want
+to run.  Common boot loaders include: Grub, Grub2, Lilo, and isolinux.  Boot
+loaders usually show you a menu that lets you decide what system to boot into
+or what boot options to use.</p></div>
+</div>
+<div class="sect3">
+<h4 id="boot_partition">boot partition</h4>
+<div class="paragraph"><p>This is normally the partition that holds the linuxfs file when booting
+live media.  When booting <span class="cheat">fromiso</span> it is the partition that contains
+the ISO file.</p></div>
+</div>
+<div class="sect3">
+<h4 id="BusyBox">BusyBox</h4>
+<div class="paragraph"><p>From the <a href="http://www.busybox.net/about.html">BusyBox website</a>: BusyBox
+combines tiny versions of many common UNIX utilities into a single small
+executable &#8230;  BusyBox provides a fairly complete environment for any small or embedded system.</p></div>
+<div class="paragraph"><p>BusyBox is</p></div>
+</div>
+<div class="sect3">
+<h4 id="byte">byte</h4>
+<div class="paragraph"><p>A small unit of computer storage.  One byte is roughly the amount of memory
+used to store one ASCII character or punctuation mark so 1,000 bytes could
+hold roughly 1,000 characters.  <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=byte&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="frugal_install">frugal install</h4>
+<div class="paragraph"><p>A frugal install is the same thing as creating a LiveUSB on an internal hard
+drive.  Like a LiveCD and a LiveUSB, the entire file system is stored in a
+linuxfs file.  This takes up much less disk space than a normal install which
+is why it is called "frugal".</p></div>
+</div>
+<div class="sect3">
+<h4 id="gigabyte">gigabyte</h4>
+<div class="paragraph"><p>One gigabyte is a billion bytes (1,000,000,000 bytes). <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=Gigabyte&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="disk_label">label, disk</h4>
+<div class="paragraph"><p>Hard drives, partitions, and removable discs (cds, dvds, and blurays) can all
+have an optional digital label. This is not an adhesive label!  Often it is
+limited to a handful of characters.  It can very convenient but no effort is
+made to ensure labels are unique.</p></div>
+</div>
+<div class="sect3">
+<h4 id="initrd">initrd</h4>
+<div class="paragraph"><p>Stands for "initial ram disk".  It is an optional feature when booting Linux.
+It is a small file system that get mounted in RAM and it provides a very
+limited environment for paving the way for the full Linux system.  It is
+required if the main root file system requires drivers to be loaded before
+it can be accessed.  It is more often used for LiveCDs (and LiveUSBs) which
+need extra preparation in order to mount a linuxfs and tmpfs and use
+them to create an aufs which is used as the root file system.  The program
+that does this work is called linuxrc. <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=initrd&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="ISO_image">ISO image file</h4>
+<div class="paragraph"><p>An ISO image (also called an "ISO file" or "iso file") is a single file that
+contains all the information in the file system on a data CD or a data DVD.
+The filename extension is <tt>.iso</tt> by convention.  These files are usually
+used to create a data CD or a data DVD. They can also be mounted directly as a
+read-only filesystem:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># mount -t iso9660 -o loop,ro some file.iso /mnt/iso</tt></pre>
+</div></div>
+<div class="paragraph"><p><span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=ISO+Image&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="linuxrc">linuxrc</h4>
+<div class="paragraph"><p>When an initrd file is used, this is the first program run in Linux.  For then
+antiX LiveCD/USB, this file sets up the AUFS, which makes it appear that Linux
+has a real read-write file system over two times larger than the space used
+on the CD or USB.</p></div>
+</div>
+<div class="sect3">
+<h4 id="LiveCD">LiveCD</h4>
+<div class="paragraph"><p>A LiveCD is a bootable CD that contains a fully functional operating system,
+often with a graphic desktop environment.  Uses include:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+"test drive" a new operating system or distribution
+</p>
+</li>
+<li>
+<p>
+Install a new operating system or distribution
+</p>
+</li>
+<li>
+<p>
+As a rescue "escape hatch" to fix a broken or unbootable system.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Before the advent of LiveCDs people would have to go through an often lengthy
+install procedure before they would be able to try using Linux.  Now, almost
+every Linux distribution offers a LiveCD.
+<span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=Live+CD&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="LiveUSB">LiveUSB</h4>
+<div class="paragraph"><p>A LiveUSB is like a LiveCD.  It contains the entire <span class="antix-text">anti<span class="antix-x">X</span></span> GNU/Linux
+operating system.  It has several advantages or LiveCDs.  See the
+<a href="live_usb.html">LiveUSB page</a> for more details. <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=Live+USB&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="megabyte">megabyte</h4>
+<div class="paragraph"><p>One megabyte is one million bytes (1,000,000 bytes).
+<span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=megabyte&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="RAM">RAM</h4>
+<div class="paragraph"><p>Random access memory.  The main system memory in a computer.  It is faster
+than hard drives, cds/dvds, and USB flash sticks.  On newer system the amount
+of RAM is given in Gigabytes.  On older systems it is usually given in
+hundreds for Megabytes. <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=Random-access+memory&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="remaster">remaster</h4>
+<div class="paragraph"><p>Ramastering involves making a new linuxfs file that is a clone of your
+current system after it has been modified, usually by adding or deleting
+packages or by changing settings.</p></div>
+</div>
+<div class="sect3">
+<h4 id="linuxfs">linuxfs</h4>
+<div class="paragraph"><p>Linuxfs stands for "(squashed) linux file system".  It is an entire file system
+packed into one file and highly compressed.  This is the magic that makes
+it possible to store an entire GNU/Linux system on a CDROM.  The downside
+of linuxfs is that it is read-only.  You can create a new linuxfs file
+but this involves re-compressing the entire file system which consumes time
+and resources.  This is process is called remastering. <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=SquashFS&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="tmpfs">tmpfs</h4>
+<div class="paragraph"><p>A filesystem that is created in RAM.  It is very fast but it consumes RAM that
+could be used for other things and it is only temporary.  It is similar to a
+ramdisk but there are some technical differences.  <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=tmpfs&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+<div class="sect3">
+<h4 id="UUID">UUID</h4>
+<div class="paragraph"><p>Universally unique identifier.  A 16-byte number usually expressed as 32
+hexadecimal digits.  It is used to uniquely identify disk drives and
+partitions. <span class="wiki">
+<a href="http://en.wikipedia.org/wiki/Special:Search?search=UUID&amp;go=Go">
+[wikipedia]</a>
+</span></p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:56 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

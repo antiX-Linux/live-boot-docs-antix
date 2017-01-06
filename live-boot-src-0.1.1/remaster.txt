@@ -1,0 +1,342 @@
+= Live Remastering
+:mast-page:
+
+{start-toc}
+
+[[toc]]
+[compact]
+*  link:#under-toc[Live Remastering]
+
+** link:#_system_requirements[System Requirements]
+
+*  link:#_how_it_works[How it Works]
+
+** link:#_remastering_plus_persistence[Remastering Plus Persistence]
+
+*  link:#boot-options[Live Remaster Boot Options]
+*  link:#_details_for_developers[Details for Developers]
+
+** link:#_the_devil_8217_s_in_the_details[The Devil's in the Details]
+** link:#_rolling_back_and_version_management[Rolling Back and Version Management]
+** link:#_symlinks_can_help[Symlinks can Help]
+** link:#_interactions_with_persistent_root[Interactions with Persistent Root]
+** link:#_estimating_the_size_of_a_new_linuxfs_file[Estimating the Size of a New Linuxfs File]
+
+[[under-toc]]
+== Live Remastering
+{top}
+
+The primary purpose of live remastering is to make it as safe, easy, and
+convenient as possible for users to make their own customized version of
+antiX. The idea is that you use a LiveUSB or a LiveHD (a frugal install to a
+hard drive partition) as the development and testing environment.  Add or
+subtract packages and then when you are ready to remaster, use use a simple
+remaster script or GUI to do the remaster and then reboot.  If something goes
+horribly wrong, simply reboot again with the cheat:rollback: option and you
+will boot into the previous environment.
+
+If you are using a LiveUSB then the LiveUSB is your target system.  You
+can use it to install your customized version of {antix} on other systems.
+If you are using a LiveHD then you will need to create a LiveUSB or
+a LiveCD from the LiveHD in order to install elsewhere.
+
+[NOTE]
+.Note for Developers
+=====================================
+There is a need for easy GUI programs to do the live remastering
+and to create a LiveCD image from a remastered LiveHD/USB.
+=====================================
+
+=== System Requirements
+{top}
+
+There are three simple and straightforward system requirements that
+are needed to perform live remastering:
+
+* The boot device must be writable
+* The boot device must have enough free space to create a new linuxfs file
+* The development system must have been created using a "frugal install",
+not a fromiso install
+
+In other words, the development system must be booted using a linuxfs file
+that is on a writable device that has enough free space to create a new
+linuxfs file.
+
+== How it Works
+{top}
+
+In order to perform a live remaster, you just need to create the new linuxfs
+file in the same directory as the existing linuxfs file with the ".new"
+extension added.  On the next boot, before the linuxfs file is mounted, the
+following commands are (in essence) performed in the directory containing
+the linuxfs file:
+
+----------
+# mv linuxfs linuxfs.old
+# mv linuxfs.new linuxfs
+----------
+
+If the new linuxfs file makes the system unbootable then the cheat:rollback:
+boot code should be used.  It can either be added manually by the user or
+their can be another Grub menu entry that contains the cheat:rollback: option.
+In this case the following two commands are (in essence) performed in the
+directory containing the linuxfs file:
+
+----------
+# mv linuxfs linuxfs.bad
+# mv linuxfs.old linuxfs
+----------
+
+This reverse the previous actions except the file that was originally called
++linuxfs.new+ is now called +linuxfs.bad+.  If you use the cheat:sqname: or
+cheat:sqext: options to change the name of the linuxfs file then these names
+are used instead of +linuxfs+.  For example if you boot with cheat:sqext=e16:
+then we look for a file called +linuxfs.e16.new+ etc.
+
+=== Remastering Plus Persistence
+{top}
+
+A persistent home or a persistent can useful if you are doing remastering.
+A persistent home is a handy place to hold your development environment if
+you don't want that environment to end up in your remaster.  A persistent
+root is a handy way to save changes between reboots without having to go
+to the bother of doing a full remaster.  In a mountain climbing analogy, you
+can think of the persistent root as a piton (or a
+wiki:Spring-loaded_camming_device[spring loaded camming device]) while
+remastering is setting up a new campsite or bivouac.
+
+[[boot-options]]
+== Live Remaster Boot Options
+{top}
+
+There are only two live remaster boot option because live remastering is
+almost entirely handled by a script or GUI.  The only two option are to
+prevent live remastering and to rollback live remastering in case something
+goes horribly wrong.
+
+[[noremaster]]
+==== cheat:noremaster:
+don't remaster even when a linuxfs.new file is found
+
+[[rollback]]
+==== cheat:rollback:
+return to previous version after a failed remaster
+
+== Details for Developers
+{top}
+
+At its core, live remastering can be done with a single, simple command:
+
+--------------------
+# mklinuxfs /aufs linuxfs.new -e tmp var/tmp var/log
+--------------------
+
+Almost all of the work is in the details of using the right linuxfs file in
+the right directory on the right device, making sure that device is mounted
+and is writable, and finally, making sure there is enough free space on the
+device to create the new linuxfs files.
+
+=== The Devil's in the Details
+{top}
+
+To make writing live remaster programs as easy as possible, the linuxrc
+script generates a +remaster.conf+ file in the +/live-config+ directory
+whenever remastering is possible.  This usually means that the boot device
+is writable and we didn't boot cheat:fromiso:.  In addition, this file
+contains all the details you need to do a live remaster.  Here is an example:
+
+.Example +/live-config/remaster.conf+ file
+----------------------
+BOOT_MP="/boot-dev"
+BOOT_DEV="/dev/sdb2"
+SQFILE_DIR="/boot-dev/antiX-12"
+SQFILE_FULL="/boot-dev/antiX-12/linuxfs"
+SQFILE_NAME="linuxfs"
+
+AUFS_MP="/aufs"
+AUFS_RAM_MP="/aufs-ram"
+
+DID_REMASTER=""
+DID_ROLLBACK=""
+----------------------
+
+Here is a bare-bones shell script to do remastering.  It is
+not intended to be used (although it should work), it is meant
+as a simple example to demonstrate the required steps, namely:
+
+* read config file or exit if file does not exit
+* mount the boot device unless it is already mounted
+* remount it read-write if it is not already
+* create the new linuxfs file
+
+In practice, more error checking should be performed, more
+verbose output should be available and devices that were
+mounted should be unmounted, etc.  Programs should probably
+ask if the user wants to reboot after the new linuxfs file
+was created.
+
+---------------------
+#!/bin/bash
+
+conf_file=/live-config/remaster.conf
+
+#--- Read variables from conf_file
+[-f $conf_file ] || exit
+source $conf_file
+
+#--- Mount device holding linuxfs if needed
+mountpoint -q $BOOT_MP || mount $BOOT_DEV $BOOT_MP
+
+#--- remount read-write if needed
+mnt_opts=$(grep "^$BOOT_DEV " /proc/mounts | cut -d" " -f4)
+case ",$mnt_opts," in
+    ,rw,) ;;
+       *) mount -o remount,rw $BOOT_MP;;
+esac
+
+#--- create the new linuxfs file
+mklinuxfs $AUFS_MP $SQFILE_FULL.new -e tmp var/tmp var/log
+---------------------
+
+=== Remastering Plus Persistence Redux
+{top}
+
+// What follows is not yet implemented.
+
+There is a potential problem when combining remastering with root persistence:
+the +rootfs+ needs to be cleared when a remastered linuxfs is used and
+if the linuxfs is rolled back then the +rootfs+ file system needs to
+be restored.  Therefore, if root persistence is enabled when a linuxfs
+remastering takes place then we also:
+
+--------------------
+# mv rootfs rootfs.old
+# mv rootfs.new rootfs
+--------------------
+
+If no +rootfs.new+ file exists, then we make an empty file called +rootfs+.
+Likewise, if root persistence is enabled when a rollback happens then we:
+
+--------------------
+# mv rootfs rootfs.old
+# mv rootfs.old rootfs
+--------------------
+
+[NOTE]
+.Note for Developers
+=====================================
+If persist root is enabled when you make a +linuxfs.new+ for remastering
+then you should also make a +rootfs.new+ containing an empty file system.
+This will ensure root persistence continuity.
+=====================================
+
+
+=== Rolling Back and Version Management
+{top}
+
+The linuxrc script offers crude emergency rollback option but that doesn't
+mean the remastering script can't do rollbacks as well.  It's best to think
+of the remaster script as being in control and the linuxrc script offering
+a service: to replace the +linuxfs+ file with +linuxfs.new+.  If the linuxrc
+script has just performed a remaster or a rollback, this will be reported in
+the  +/live-config/remaster.conf+ file.  But that is not 100% reliable since
+it is possible that another reboot as occurred before the remaster script has
+been run.  What is reliable (or at least much more reliable) is the existence
+of the files: +linuxfs.old+ or +linuxfs.bad+.
+
+Generally, a full-featured live-remaster program will use the existence of one
+of these files as an indication of either a successful remaster or a rollback.
+The script should then "do something" with these files so that it does not
+keep thinking a remaster or rollback just occurred.
+
+=== Symlinks can Help
+{top}
+
+If a user performs several remasters with or without rollbacks, it will be
+very easy to lose track of which version is which.  An easy way around this
+problem is to use symlinks for all the linuxfs files, possibly including
+the first.  When creating a new LiveUSB, you can name the linuxfs file
++linuxfs.00+ and create a +linuxfs+ symlink that points to it:
+
+--------------------
+    linuxfs --> linuxfs.00
+--------------------
+
+When it is time to do the first remaster, the new linuxfs file can be
+called +linuxfs.01+ with a symlink pointing to it called +linuxfs.new+:
+
+--------------------
+   linuxfs.new --> linuxfs.01
+--------------------
+
+You can easily tell which version of linuxfs is being used by looking at
+the extension of the file the +linuxfs+ symlink points to.  For example:
+
+--------------------
+$  basename $(readlink -f $SQFILE_FULL) | sed 's/.*\.\([0-9]\+\)$/\1/' 
+--------------------
+
+=== Interactions with Persistent Root
+{top}
+
+=== Estimating the Size of a New Linuxfs File
+{top}
+
+Since making a new linuxfs file can consume time and resources it is
+important to not start the process when we know there is not enough room on
+the device to complete it. In other words, we need to estimate how much the
+file system will get compressed.  If past performance is indicative of future
+results then we can look at the compression ratios for the linuxfs files
+distribution in the standard {antix} ISO files:
+
+[options="header", grid="none", cols=">,^,^,^", id="sqfs"]
+|==========
+| ptab:[antiX System] | ptab:[Linuxfs Size] | ptab:[Actual Size] | ptab:[Ratio]
+| 12 core | 108M | 286M   | 0.378
+| 12 base | 354M | 870M   | 0.407
+| 12 full | 669M | 1685M  | 0.397
+|==========
+
+The ratios are all within 10% of 0.41.  I'd suggest using a safety margin
+of 10 Meg + 10% but even this might not suffice if, for example, a lot of
+compressed media files or large amounts of pseudo-random data are stored.
+For those cases the compression ratio will be close to 1.0 and might even
+exceed 1.0 due to overhead.
+
+You can get an accurate measure of home much space the uncompressed file system
+takes up with the +du+ command applied to the AUFS mount point:
+
+--------------------
+# du -sm /aufs | cut -f1
+892
+--------------------
+This says the file system takes up 892 Meg.  The estimate for the linuxfs
+file would be 892 * .45 + 10 = 407 Meg.
+
+It should be much faster to just look at the size of what is used in the RAM
+part of the AUFS and then add this to the size of the existing linuxfs file:
+
+--------------------
+# du -sm /aufs-ram | cut -f1
+23
+# du -sm /boot-dev/antiX-12/linuxfs | cut -f1
+354
+--------------------
+
+This is faster and it is also provides a more conservative estimate.  For
+example, if the user has deleted a bunch of packages then the size of the
+new linuxfs file will be smaller than the size of the orignal but this
+estimate will always say the new linuxfs file will be larger than the
+original.
+
+In the example above the RAM part of the AUFS file system takes up 23 Meg and
+the original linuxfs file takes 354 Meg.  The estimate for the size of the
+new linuxfs file is 354 + 23 * .45 + 10 = 374.  This is smaller than the
+previous estimate because of the safety margins.  If you remove those then the
+two estimates agree with within 1%.
+
+
+
+
+
+

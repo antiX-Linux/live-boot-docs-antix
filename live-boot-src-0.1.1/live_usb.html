@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Tips and Techniques for creating LiveUSBs</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="live_usb.html">LiveUSB</a></td><td>&#187;</td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Tips and Techniques for creating LiveUSBs</div>
+</div>
+<div id="body-text">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><div class="start-toc">On this page:</div></p></div>
+<div class="ulist compact" id="toc"><ul>
+<li>
+<p>
+<a href="#under-toc">Creating antiX LiveUSBs</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_advantages">Advantages</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_disadvantages">Disadvantages </a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_why_re_invent_the_wheel">Why re-invent the wheel?</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_game_plan">Game Plan</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_example">Example</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_adding_goodies">Adding Goodies</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_md5_checksums">MD5 Checksums</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_remastering">Remastering</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_persistent_root_and_home">Persistent root and home</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_gory_details">Gory Details</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_partitions_and_file_systems">Partitions and File Systems</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_copying_files">Copying Files</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_installing_grub">Installing Grub</a>
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-toc">Creating antiX LiveUSBs</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>tl;dr:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Label the boot partition and use <span class="cheat">bootlabel</span>
+</p>
+</li>
+<li>
+<p>
+Align your partitions and use large block sizes
+</p>
+</li>
+<li>
+<p>
+Use a boot directory containing the <span class="antix-text">anti<span class="antix-x">X</span></span> version in its name
+</p>
+</li>
+<li>
+<p>
+Leave space for remastering and/or root and home persistence
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_advantages">Advantages</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>A LiveUSB has many advantages over a LiveCD:</p></div>
+<div class="ulist compact"><ul>
+<li>
+<p>
+It boots much faster
+</p>
+</li>
+<li>
+<p>
+It is smaller and more rugged
+</p>
+</li>
+<li>
+<p>
+It usually has a much larger capacity
+</p>
+</li>
+<li>
+<p>
+You can write to it so you can have persistence and remastering
+</p>
+</li>
+<li>
+<p>
+You can have multiple partitions, including swap
+</p>
+</li>
+<li>
+<p>
+You can have several different versions on the same USB stick
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_disadvantages">Disadvantages</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>But there are some disadvantages as well:</p></div>
+<div class="ulist compact"><ul>
+<li>
+<p>
+A LiveCD is read-only so it can be more secure than a LiveUSB
+</p>
+</li>
+<li>
+<p>
+Many older computers can&#8217;t boot from a USB stick but they can boot from a CD
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_re_invent_the_wheel">Why re-invent the wheel?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Many tools already exist to create a LiveUSB from a LiveCD iso image.  Why
+don&#8217;t we just use the existing tools and be done with it?  The answer is
+because the existing tools don&#8217;t let you take advantage of the new features
+that a LiveUSB makes possible, in particular: persistence, remastering and
+multiple operating systems.  In addition, it is now possible to make LiveUSBs
+that boot more reliably.</p></div>
+<div class="sect2">
+<h3 id="_game_plan">Game Plan</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The basic idea is to do a frugal install on a single large partition with the
+three basic files (vmlinuz, initrd.gz, and linuxfs) in a single directory
+that is labeled by the <span class="antix-text">anti<span class="antix-x">X</span></span> version and kernel type (486 or 686).  In
+addition, we label this partition so the bootstrap program doesn&#8217;t have to go
+searching for it.  I like to use an ext2 or ext3 filesystem although it is
+possible to use a fat32 (or other) filesystem.</p></div>
+<div class="ulist compact"><ul>
+<li>
+<p>
+Do a "Frugal Install" by copying the linuxfs file
+</p>
+</li>
+<li>
+<p>
+Put all three boot files in the same directory labeled by OS and version
+</p>
+</li>
+<li>
+<p>
+Add a label to the boot partition
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_example">Example</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>In this example we will put three different versions of <span class="antix-text">anti<span class="antix-x">X</span></span> (12 686 full,
+12 686 base, and 12 486 core) on the same USB stick. follow the convention
+that "686" and "full" are defaults and thus can be omitted from the directory
+names.  Here is the file layout on the boot partition:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/antiX-12
+    vmlinuz
+    initrd.gz
+    linuxfs</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/antiX-12-base
+    vmlinuz
+    initrd.gz
+    linuxfs</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/antiX-12-core-486
+    vmlinuz
+    initrd.gz
+    linuxfs</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/boot/grub/
+    menu.lst
+    etc ...</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/boot/isolinux
+    isolinux.cfg
+    etc ...</tt></pre>
+</div></div>
+<div class="paragraph"><p>Here are the three (partial) Grub entries:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>title antiX-12 Full 686
+kernel /antiX-12/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12/initrd.gz
+
+title antiX-12 Base 686
+kernel /antiX-12-base/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12-base/initrd.gz
+
+title antiX-12 Core 486
+kernel /antiX-12-core-486/vmlinuz blab=antiXlive bdir=antiX-12
+initrd /antiX-12-core-486/initrd.gz</tt></pre>
+</div></div>
+<div class="paragraph"><p>I&#8217;ve used abbreviated versions of <span class="cheat">bootdir</span> (<span class="cheat">bdir</span>) and
+<span class="cheat">bootlabel</span> (<span class="cheat">blab</span>).  You will generally need and want other boot
+parameters.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_goodies">Adding Goodies</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="sect2">
+<h3 id="_md5_checksums">MD5 Checksums</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>We will perform an optional md5sum check on files in the directory containing
+the linuxfs file and files in the directory containing the ISO file (if
+the <span class="cheat">fromiso</span> option is used).  For every file you want checked, make
+a second fle with the <tt>.md5</tt> extension tacked on to the end of the file name
+containing the md5 checksum.  For example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># md5sum linuxfs &gt; linuxfs.md5</tt></pre>
+</div></div>
+<div class="paragraph"><p>Typically, this will only be used for the linuxfs file and/or the ISO file
+but we&#8217;ll check every file that has a md5 checksum file.  Since this check
+will delay the boot process, we only perform the check of the <span class="cheat">check</span>
+boot parameter was given.  You can create a Grub menu entry that enables this
+option if you want.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_remastering">Remastering</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The only thing the LiveUSB creator has to do to enable live-remastering is to
+make sure there is enough room on the boot partition for another linuxfs
+file.  The standard antiX-12 linuxfs files range in size from 110 Meg to 670
+Meg.  The size of a new linuxfs file will depend on the size of the original
+linuxfs file and also on how much has been added or subtracted.</p></div>
+<div class="paragraph"><p>If the file system on the <a href="glossary.html#boot_partition" class="gloss-ref">
+boot partition
+</a> handles
+symlinks then you may want to name the linuxfs file either <tt>linuxfs.00</tt> or
+<tt>linuxfs.orig</tt> and create a symlink to it called <tt>linuxfs</tt>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># ln -s linuxfs.00 linuxfs</tt></pre>
+</div></div>
+<div class="paragraph"><p>This will make it easier to keep track of which linuxfs file is which in the
+case when there is repeated remastering and the user wants to keep the
+previous versions either as backups or as snapshots.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_persistent_root_and_home">Persistent root and home</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gory_details">Gory Details</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="sect2">
+<h3 id="_partitioning">Partitioning</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<p><span class="comment"> alignment</span></p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># mkfs.ext4 -q -m 0 -O ^has_journal -L LiveUSB -N 400 /dev/sdb1</tt></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_copying_files">Copying Files</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<p><span class="comment"> ???</span></p>
+</div>
+<div class="sect2">
+<h3 id="_installing_grub">Installing Grub</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<p><span class="comment"> Install on both mbr and on boot partition</span></p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># grub
+find /boot/memtest
+root (hd2,0)
+setup (hd2)
+setup (hd2,0)
+quit</tt></pre>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:58 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

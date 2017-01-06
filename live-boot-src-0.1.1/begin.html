@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Beginner&#8217;s Guide</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="begin.html">Beginners</a></td><td>&#187;</td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Beginner&#8217;s Guide</div>
+</div>
+<div id="body-text">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><div class="start-toc">On this page:</div></p></div>
+<div class="ulist compact" id="toc"><ul>
+<li>
+<p>
+<a href="#under-toc">A Beginner&#8217;s Guide to Booting antiX</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_step_0_booting_the_computer">Step 0: Booting the computer</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_step_1_the_boot_loader_menu">Step 1: The Boot Loader menu</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_step_2_the_linuxrc_bootstrap">Step 2: the linuxrc bootstrap</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_step_3_start_services">Step 3: Start Services</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-toc">A Beginner&#8217;s Guide to Booting antiX</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This is an easy step-by-step guide to booting <span class="antix-text">anti<span class="antix-x">X</span></span> Live Media (LiveCD,
+LiveUSB, etc). It was inspired by rokytnji&#8217;s many step-by-step guides
+on the <span class="antix-text">anti<span class="antix-x">X</span></span> forums.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_0_booting_the_computer">Step 0: Booting the computer</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><span class="image">
+<img src="images/boot-screen.png" alt="Boot Screen" width="783" height="467" title="Boot Screen" />
+</span></p></div>
+<div class="paragraph"><p>Sometimes it goes by so fast you might want to take a picture of it because it
+contains a couple of pieces of vital information.  In the image above it says
+"Press DEL to run Setup" and it also says "Press F9 for BBS POPUP".  This
+means you can access the BIOS set up with the &lt;delete&gt; key and you can get to
+the boot option menu with the &lt;F9&gt; key.  These keys are different on different
+computer systems (<span style="color: darkred">*** sigh ***</span>).</p></div>
+<div class="paragraph"><p>If you are very lucky, your computer might already be setup to boot from the
+CD Drive first, or even boot from a USB stick first.  If not then you will
+either need to go into the BIOS Setup and adjust the boot order (to change
+things permanently) or invoke the boot option menu to change the boot order
+for just this one time.  You should be able to figure out which entry is for
+the CDROM and which one is for the USB stick.  Very old computers can not boot
+from USB so the USB stick won&#8217;t show up as one of the options.</p></div>
+<div class="paragraph"><p>When you succeed in booting the Live Media you will see a (hopefully) brief
+text message flash by and then you will end up with the boot loader menu.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_the_boot_loader_menu">Step 1: The Boot Loader menu</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If you run into difficulties boot, this menu will be your starting point, your
+base camp for assaulting the peak of Mount antiX.</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/grub-menu.jpg" alt="Grub Menu" width="796" height="598" title="Grub Menu" />
+</span></p></div>
+<div class="paragraph"><p>You might see a clock symbol at the end of the highlighted line.  Whether you
+do or not, I suggest you hit the &lt;down-arrow&gt; key followed by the &lt;up-arrow&gt;
+key.  This will disable auto-start and give you time to think.  Once you hit a
+key (most keys anyway) the timer has been deactivated and you don&#8217;t have to
+worry about being suddenly whisked away to the next step.</p></div>
+<div class="paragraph"><p>You use the &lt;up&gt; and &lt;down&gt; arrow keys to move between preselect groups of
+options.  You should see the text in the "Boot Options" line near the bottom
+of the screen change.  It shows you the preset options.  You can add other
+options just by typing them in or you can use the &lt;left&gt; and &lt;right&gt; arrow
+keys to edit one or more of the preset options. The
+<a href="alpha-index.html">Option Index</a> page lists all the common options
+alphabetically in case you want to find out what a particular option does.</p></div>
+<div class="paragraph"><p>If you have trouble booting, the primary tool you will use to fix things is
+to type in options at the Boot Loader menu.  Once you have the options like
+you want them hit &lt;enter&gt; to continue the boot process.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">
+<div class="paragraph"><p>If you get to this stage but are having trouble booting, you can adjust the
+size of the text that will be displayed in the next step with the
+<a href="personalize.html#vga">vga option</a>.  This can be extremely helpful.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_the_linuxrc_bootstrap">Step 2: the linuxrc bootstrap</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This next step involves the bootstrap script.  It reports what it is doing
+in text mode.  Often, this is where the problems occur.</p></div>
+<pre><div class="code-example"><span style="color:aqua">Welcome to </span><span style="color:yellow">antiX-M11</span><span style="color:white"> Jayaben Desai</span><span style="color:aqua">!</span>
+<span style="color:aqua">   Total Memory </span><span style="color:fuchsia">  991</span><span style="color:aqua"> M</span>
+<span style="color:aqua">    Free Memory </span><span style="color:fuchsia">  963</span><span style="color:aqua"> M</span>
+<span style="color:aqua">Linux kernel: </span><span style="color:yellow">2.6.36-1-mepis-smp</span>
+<span style="color:aqua">CPU: </span><span style="color:yellow">AMD Athlon(tm) 64 X2 Dual Core Processor 3600+</span>
+<span style="color:aqua">Scanning devices for:</span><span style="color:yellow"> antiX/squashfs</span>
+<span style="color:lime">Mounted </span><span style="color:lime">/dev/sr0</span><span style="color:lime"> at </span><span style="color:blue">/boot-dev</span>
+
+<span style="color:aqua">The linuxrc bootstrap is done.</span>
+<span style="color:aqua">======================================================================</span>
+</div></pre>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_start_services">Step 3: Start Services</h2>
+<div class="sectionbody">
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:54 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

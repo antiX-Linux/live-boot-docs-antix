@@ -1,0 +1,726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Index of Common Boot Options</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td>&#187;</td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Index of Common Boot Options</div>
+</div>
+<div id="body-text">
+<div class="sect1">
+<h2 id="top">Alphabetical Index of Common Options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This is an alphabetical table of many of the more commonly used boot
+options.  They are colored coded by when the option takes effect.
+The pre-bootstrap and post-bootstrap options are all kernel options.
+The pre-bootstrap ones take effect immediately when the kernel starts
+and the post-bootstrap ones take effect when modules are loaded which
+happens right at the start of the init process, right after the
+linuxrc bootstrap.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">
+<div class="paragraph"><p>In almost every Linux system, you can find out what boot options were used
+with the command "<tt>cat /proc/cmdline</tt>".  If you want to see one option per
+line then do:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>for opt in $(cat /proc/cmdline); do echo $opt; done</tt></pre>
+</div></div>
+</td>
+</tr></table>
+</div>
+<div class="option-index">
+<table class="option-index" border="0">
+<tr><td class="legend-title" colspan="3">
+<div class="legend-title">Legend</div>
+</td></tr>
+<tr class="index-legend"><td colspan="3" class="index-legend">
+<table class="index-legend" align="center">
+<tr><td>
+<table class="option-legend">
+<tr><td class="preboot">   yellow </td><td>= before bootstrap</td></tr>
+<tr><td class="linuxrc">   white  </td><td>= during bootstrap</td></tr>
+</table>
+</td><td>
+<table class="option-legend">
+<tr><td class="postboot">  green  </td><td>= right after bootstrap</td></tr>
+<tr><td class="antix">     blue   </td><td>= during init</td></tr>
+</table>
+</td></tr></table></td></tr>
+<tr><td colspan="3" class="spacer"></td></tr>
+<tr>
+<th class="option">  Option</th>
+<th class="section"> Section</th>
+<th class="define">  Definition</th>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#bootdev">
+bootdev
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the name of the device that holds the linuxfs file</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#bootdir">
+bootdir
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the directory that holds the linuxfs file</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#bootlabel">
+bootlabel
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the label of the device that holds the linuxfs file</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#bp">
+bp
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">set a breakpoint in linuxrc script</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#bootuuid">
+bootuuid
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the UUID of the device that holds the linuxfs file</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#check">
+check
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">check the md5 sum for linuxfs and iso files</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+dark
+</td>
+<td class="section">
+</td>
+<td class="define">make output colors darker</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#db+">
+db+
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">enable limited linuxrc debugging</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#db-">
+db-
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">disable limited linuxrc debugging</td>
+</tr>
+<tr class="preboot data">
+<td class="option">
+<a href="debug.html#debug">
+debug
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">puts kernel in debug mode</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#delay">
+delay
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">wait "delay" seconds before looking for the linuxfs file</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#desktop">
+desktop
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">which desktop manager to use</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#dpi">
+dpi
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">Set display resolution (in X-windows)</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#drvr">
+drvr
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">which video driver to use</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+fromhd
+</td>
+<td class="section">
+deprecated
+</td>
+<td class="define">use cheat:bootdev: or cheat:bootlabel: or cheat:bootuuid:</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+fromiso
+</td>
+<td class="section">
+deprecated
+</td>
+<td class="define">the device containing an ISO file to boot off of</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+image_dir
+</td>
+<td class="section">
+deprecated
+</td>
+<td class="define">use cheat:bootdir:</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+image_name
+</td>
+<td class="section">
+deprecated
+</td>
+<td class="define">use cheat:sqname:</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+highcolor
+</td>
+<td class="section">
+</td>
+<td class="define">make output more colorful</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#lang">
+lang
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">Set language</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#kbd">
+kbd
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">Set keyboard layout</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#kbdvar">
+kbdvar
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">set keyboard variant</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#kbopt">
+kbopt
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">set keyboard options</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="optimize.html#lean">
+lean
+</a>
+</td>
+<td class="section">
+<a href="optimize.html#boot-options">optimize</a>
+</td>
+<td class="define">turn off some services usually not needed in LiveCD/USB</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+lowcolor
+</td>
+<td class="section">
+</td>
+<td class="define">make output less colorful</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="optimize.html#mean">
+mean
+</a>
+</td>
+<td class="section">
+<a href="optimize.html#boot-options">optimize</a>
+</td>
+<td class="define">disable network connections</td>
+</tr>
+<tr class="preboot data">
+<td class="option">
+<a href="debug.html#mem">
+mem
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">pretend system has less memory</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="optimize.html#mirror">
+mirror
+</a>
+</td>
+<td class="section">
+<a href="optimize.html#boot-options">optimize</a>
+</td>
+<td class="define">set apt mirror</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+nocolor
+</td>
+<td class="section">
+</td>
+<td class="define">remove all color from output</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#nodeb">
+nodeb
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">don't install .deb files from the deb/ subdirectory</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#noetc">
+noetc
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">don't load /etc files from the etc/ subdirectory</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+nohal
+</td>
+<td class="section">
+</td>
+<td class="define">disable hal and dbus</td>
+</tr>
+<tr class="postboot data">
+<td class="option">
+nomodeset
+</td>
+<td class="section">
+</td>
+<td class="define">disable all modesetting</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="remaster.html#noremaster">
+noremaster
+</a>
+</td>
+<td class="section">
+<a href="remaster.html#boot-options">remaster</a>
+</td>
+<td class="define">don't remaster even when a .new file is found</td>
+</tr>
+<tr class="postboot data">
+<td class="option">
+nouveau.modeset
+</td>
+<td class="section">
+</td>
+<td class="define">disable modesetting for nouveau driver</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#noRox">
+noRox
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">disable Rox desktop with some icons</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#noxorg">
+noxorg
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">use automatic X detection</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persist">
+persist
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">set persistence options</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persistdev">
+persistdev
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">the device holding the persistence file(s)</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persistdir">
+persistdir
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">the directory holding the persistence file(s)</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persistlabel">
+persistlabel
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">the label of the device holding the persistence file(s)</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persistretry">
+persistretry
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">number of times to retry mounting persist device</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="persistence.html#persistuuid">
+persistuuid
+</a>
+</td>
+<td class="section">
+<a href="persistence.html#boot-options">persistence</a>
+</td>
+<td class="define">the UUID of the device holding the persistence file(s)</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#pk">
+pk
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">control kernel messages during bootstrap</td>
+</tr>
+<tr class="postboot data">
+<td class="option">
+<a href="debug.html#pki">
+pki
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">control kernel messages at start of init</td>
+</tr>
+<tr class="preboot data">
+<td class="option">
+<a href="debug.html#quiet">
+quiet
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">turn off many kernel messages</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#retry">
+retry
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">number of times to retry mounting the boot device</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="remaster.html#rollback">
+rollback
+</a>
+</td>
+<td class="section">
+<a href="remaster.html#boot-options">remaster</a>
+</td>
+<td class="define">return to previous version after a failed remaster</td>
+</tr>
+<tr class="preboot data">
+<td class="option">
+<a href="debug.html#rootdelay">
+rootdelay
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">wait this many seconds before booting</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+rwmode
+</td>
+<td class="section">
+</td>
+<td class="define">default mode for mounting file systems in linuxrc</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#sqext">
+sqext
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the extension of the linuxfs file</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="boot.html#sqname">
+sqname
+</a>
+</td>
+<td class="section">
+<a href="boot.html#boot-options">boot</a>
+</td>
+<td class="define">the name of the linuxfs file [antiX/linuxfs]</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="optimize.html#toram">
+toram
+</a>
+</td>
+<td class="section">
+<a href="optimize.html#boot-options">optimize</a>
+</td>
+<td class="define">copy the linuxfs file into RAM to speed up operations</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#tz">
+tz
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">Set the timezone</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="personalize.html#usb-mount">
+usb-mount
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">Set external devices to auto-mount when attached.</td>
+</tr>
+<tr class="preboot data">
+<td class="option">
+<a href="personalize.html#vga">
+vga
+</a>
+</td>
+<td class="section">
+<a href="personalize.html#boot-options">personalize</a>
+</td>
+<td class="define">set resolution of the virtual consoles</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#verbose">
+verbose
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">the level of verbosity</td>
+</tr>
+<tr class="linuxrc data">
+<td class="option">
+<a href="debug.html#wait">
+wait
+</a>
+</td>
+<td class="section">
+<a href="debug.html#boot-options">debug</a>
+</td>
+<td class="define">wait "wait" seconds before running init</td>
+</tr>
+<tr class="antix data">
+<td class="option">
+<a href="optimize.html#Xtralean">
+Xtralean
+</a>
+</td>
+<td class="section">
+<a href="optimize.html#boot-options">optimize</a>
+</td>
+<td class="define">disable even more services</td>
+</tr>
+</table></div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:54 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

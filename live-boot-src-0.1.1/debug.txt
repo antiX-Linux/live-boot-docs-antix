@@ -1,0 +1,70 @@
+= How to troubleshoot the boot process
+:dbug-page:
+
+[[top]]
+== Troubleshooting the Boot Process
+
+[[boot-options]]
+=== Boot Options for Debugging
+
+[[bp]]
+==== cheat:bp:
+set a breakpoint in linuxrc script
+
+[[check]]
+==== cheat:check:
+check the md5 sum for linuxfs and iso files
+
+
+{db-plus-anchor}
+
+==== cheat:db+:
+enable limited linuxrc debugging
+
+[[db-]]
+==== cheat:db-:
+disable limited linuxrc debugging
+
+[[debug]]
+==== cheat:debug:
+puts kernel in debug mode
+
+[[delay]]
+==== cheat:delay:
+wait "delay" seconds before looking for the linuxfs file
+
+[[mem]]
+==== cheat:mem:
+pretend system has less memory
+
+[[nodeb]]
+==== cheat:nodeb:
+don't install .deb files from the deb/ subdirectory
+
+[[noetc]]
+==== cheat:noetc:
+don't load /etc files from the etc/ subdirectory
+
+[[pk]]
+==== cheat:pk:
+control kernel messages during bootstrap
+
+[[pki]]
+==== cheat:pki:
+control kernel messages at start of init
+
+[[quiet]]
+==== cheat:quiet:
+turn off many kernel messages
+
+[[rootdelay]]
+==== cheat:rootdelay:
+wait this many seconds before booting
+
+[[verbose]]
+==== cheat:verbose:
+the level of verbosity
+
+[[wait]]
+==== cheat:wait:
+wait "wait" seconds before running init

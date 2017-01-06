@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Persistence Options</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="persistence.html">Persistence</a></td><td>&#187;</td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Persistence Options</div>
+</div>
+<div id="body-text">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><div class="start-toc">On this page:</div></p></div>
+<div class="ulist compact" id="toc"><ul>
+<li>
+<p>
+<a href="#under-toc">What is Persistence?</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_three_kinds_of_persistence">Three Kinds of Persistence</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_home_persistence">Home Persistence</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_root_persistence">Root Persistence</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_remastering">Remastering</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_persistence_remaster_features">Persistence/Remaster Features</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_persistence_remaster_system_resources">Persistence/Remaster System Resources</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_how_it_works">How it Works</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_how_home_persistence_works">How Home Persistence Works</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_how_root_persistence_works">How Root Persistence Works</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#boot-options">Persistence Options</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_the_main_persistence_option">The Main Persistence Option</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_the_persistence_device">The Persistence Device</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_the_persistence_directory">The Persistence Directory</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_details_for_developers">Details for Developers</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_when_to_synchronize_the_tt_root_fs_tt_file">When to Synchronize the <tt>root.fs</tt> File</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_creating_persistence_files">Creating Persistence Files</a>
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-toc">What is Persistence?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Persistence is a hybrid between a LiveCD/USB and a full install.  One
+of the beauties of a LiveCD is that it allows you to boot Linux
+without touching any hard drives so you can have a "test-drive" without
+fear of altering your current system.  Another feature of a LiveCD is
+that once it is burned, it close to impossible for it to get infected
+with a virus or a Trojan horse. Every time you boot it, you start of
+with a system that is clean and pristine.</p></div>
+<div class="paragraph"><p>Persistence gives you a way of remembering things between boots.  In
+order to do so, it needs access to a read-write device, typically
+either a hard drive or a USB stick.  If you are only using one
+machine that is yours then you can put the persistence file(s)s on one
+of your hard drives.</p></div>
+<p><span class="comment"> one more paragraph here</span></p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_three_kinds_of_persistence">Three Kinds of Persistence</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The <span class="antix-text">anti<span class="antix-x">X</span></span> distribution offers up to three different forms of persistence on
+our Live Media (LiveCD/DVD/USB, etc).  Remastering is only available on
+writable media such as a LiveUSB  or a LiveHD (frugal install)  <em>not</em> a CD or
+DVD.  All three forms can be used together if desired.  They each have
+different strengths and weakness which are important to understand in order
+choose the right method or methods for your purposes.</p></div>
+<div class="sect2">
+<h3 id="_home_persistence">Home Persistence</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Home persistence is the simplest and safest.  The <tt>homefs</tt> persistence file
+is mounted at <tt>/home</tt>.  Any changes made to files under <tt>/home</tt> are (nearly)
+instantly stored on <tt>homefs</tt> filesystem.  It is good if you want to save
+settings (such as bookmarks or changes to your desktop) but doesn&#8217;t save
+changes made to the system (such as installing packages).  Generally, if you
+need the root password to do it then it is not saved.  Home persistence is
+also ideal if you want to download and save a lot of data.   It is the safest
+precisely because you can&#8217;t save any system changes with it.  Even if your
+system gets compromised, it will be very difficult for the bad guys to make
+any permanent changes to your system.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_root_persistence">Root Persistence</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Root persistence allows you to save changes to the system <em>in addition</em> to
+saving personal settings.  It has two significant limitations.  These
+limitations are due to the fact that as the system is running the changes are
+stored in RAM and will be lost unless they are specifically copied back to the
+<tt>rootfs</tt> file.  If your computer crashes before the changes are copied back
+then your changes will be lost.  The other limitation is that the amount of
+new information you can store is limited by how much free RAM you have.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_remastering">Remastering</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>We include remastering as a form of persistence for purposes of comparison.
+The <a href="remaster.html">Remastering page</a> contains implementation details.  If
+root persistence is like using a piton while climbing up a cliff, remastering
+is more like setting up a camp or bivouac site.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persistence_remaster_features">Persistence/Remaster Features</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Blah, blah, blah.</p></div>
+<div class="tableblock">
+<table class="features" border="0">
+
+<tr class="head">
+<th></th>
+<th class="head">Persistent Home</th>
+<th class="head">Persistent Root</th>
+<th class="head">Remaster</th>
+</tr>
+
+<tr class="top-space"></tr>
+
+<tr>
+<td class="feature-lab">Large Storage</td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="no"> No    </span></td>
+<td><span class="yes">Yes   </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Save Personal Info</td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="no"> No    </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Save System Settings</td>
+<td><span class="no"> No    </span></td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="yes">Yes   </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Save Packages</td>
+<td><span class="no"> No    </span></td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="yes">Yes   </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Snapshot/Rollback</td>
+<td><span class="no"> No    </span></td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="yes">Yes   </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Changes stored Instantly</td>
+<td><span class="yes">Yes   </span></td>
+<td><span class="no"> No    </span></td>
+<td><span class="no"> No    </span></td>
+</tr>
+
+<tr>
+<td class="footer feature-lab">Easy Redistribution</td>
+<td class="footer"><span class="no"> No    </span></td>
+<td class="footer"><span class="no"> No    </span></td>
+<td class="footer"><span class="yes">Yes   </span></td>
+</tr>
+
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persistence_remaster_system_resources">Persistence/Remaster System Resources</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>Blah, blah, blah.</p></div>
+<div class="tableblock">
+<table class="features" border="0">
+
+<tr class="head">
+<th></th>
+<th class="head">Persistent Home</th>
+<th class="head">Persistent Root</th>
+<th class="head">Remaster</th>
+</tr>
+
+<tr class="top-space"></tr>
+
+<tr>
+<td class="feature-lab">Extra RAM</td>
+<td><span class="none">    None   </span></td>
+<td><span class="caution"> Varies </span></td>
+<td><span class="none">    None   </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">Extra Disk Space</td>
+<td><span class="caution"> Varies </span></td>
+<td><span class="caution"> Varies </span></td>
+<td><span class="danger">  Large  </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">CPU @ Creation</td>
+<td><span class="none">   Tiny   </span></td>
+<td><span class="none">   Tiny   </span></td>
+<td><span class="danger"> Large  </span></td>
+</tr>
+
+<tr>
+<td class="feature-lab">CPU @ Startup</td>
+<td><span class="none">    None   </span></td>
+<td><span class="caution"> Varies </span></td>
+<td><span class="none">    None   </span></td>
+</tr>
+
+<tr>
+<td class="footer feature-lab">CPU @ Shutdown</td>
+<td class="footer"><span class="none">    None   </span></td>
+<td class="footer"><span class="caution"> Varies </span></td>
+<td class="footer"><span class="none">    None   </span></td>
+</tr>
+
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_it_works">How it Works</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The information for both root and home persistence is stored in two files
+called <tt>rootfs</tt> and <tt>homefs</tt>.  Unlike previous versions, there is no longer
+an option to use a entire partition for root or home persistence.  The default
+location for these files is right next to the squashfs file, on the same
+device and in the same directory.  We suggest that you use this default
+location whenever possible, but sometimes it is not possible (such as when
+booting from a LiveCD or LiveDVD).  For these cases you can specify which
+device the persistence files are on.  You can also specify a different
+directory.</p></div>
+<div class="sect2">
+<h3 id="_how_home_persistence_works">How Home Persistence Works</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+</div>
+<div class="sect2">
+<h3 id="_how_root_persistence_works">How Root Persistence Works</h3>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">
+<div class="title">Note for Developers</div>
+<div class="paragraph"><p>In order to prevent mysterious breakage down the road, It is strongly
+suggested that you always put the full <span class="antix-text">anti<span class="antix-x">X</span></span> version information (or a
+reasonable abbreviation of the version information) in the path leading to
+these files.  The version information should always be in the VERSION file in
+the top directory of official <span class="antix-text">anti<span class="antix-x">X</span></span> ISO files.  This means that if you
+add persistence to a LiveCD, you will need to specify a <span class="cheat">persistdir</span>
+since the directory that holds the linuxfs file on a LiveCD is simply
+<tt>/antiX</tt>.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="boot-options">Persistence Options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="sect2">
+<h3 id="_the_main_persistence_option">The Main Persistence Option</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="sect3">
+<h4 id="persist"><span class="cheat">persist</span></h4>
+<div class="paragraph"><p>This is the main persistence option.  It controls which type of persistence to
+use (home or root or both) and whether failure to find and mount a persistence
+file generates a fatal error.  Without any values, the <span class="cheat">persist</span> option
+by itself enables "optional" root and home persistence.  The term "optional"
+means that if a persistence file is found and can be mounted then persistence
+is enabled but if the file can&#8217;t be found we boot anyway but without that form
+of persistence.  This default behavior can be fine-tuned with the following
+values.  Multiple values can be concatenated with commas.</p></div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_home_span"><span class="cheat">persist=home</span></h5>
+<div class="paragraph"><p>Use optional home persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_home_span_2"><span class="cheat">persist=home!</span></h5>
+<div class="paragraph"><p>Require home persistence.  In other words, don&#8217;t boot if
+we can&#8217;t enable home persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_root_span"><span class="cheat">persist=root</span></h5>
+<div class="paragraph"><p>Use optional root persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_root_span_2"><span class="cheat">persist=root!</span></h5>
+<div class="paragraph"><p>Require root persistence. In other words, don&#8217;t boot if
+root persistence can&#8217;t be enabled.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_scan_span"><span class="cheat">persist=scan</span></h5>
+<div class="paragraph"><p>Scan for all read-write devices to find the persistence files.  The default is
+for the persistence files to be on the same device and in the same directory
+as the linuxfs file.  You can also use <span class="cheat">persistdev</span> or
+<span class="cheat">persistlabel</span> or cheat persistuuid: to specify a different device for
+the persistence files.  If none of those three options are given but
+<span class="cheat">scan</span> is one of the values in the <span class="cheat">persist</span> option then all
+read-write devices will be scanned to find the persistence files.  The scan
+stops as soon as a directory holding at least one of the requested persistence
+files is found.</p></div>
+<div class="paragraph"><p>This option should not be used for LiveUSBs or LiveHDs where the device
+holding the persistence files is known.  It is intended to be used in LiveCDs
+so the user only needs to make a persistence files <em>somewhere</em> in the correct
+directory for persistence to be enabled.  Without this option, the user would
+either have to specify the device holding the the persistence file(s) on every
+boot or change the disk label of the device holding the persistence file(s).</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples_of_using_the_span_class_cheat_persist_span_option">Examples of using the <span class="cheat">persist</span> Option</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>A few examples might be more clear than a long winded explanation.</p></div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_span"><span class="cheat">persist</span></h5>
+<div class="paragraph"><p>The default.  Optional root persistence and optional home persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_root_span_3"><span class="cheat">persist=root!</span></h5>
+<div class="paragraph"><p>Required root persistence.  No home persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_root_home_span"><span class="cheat">persist=root!,home</span></h5>
+<div class="paragraph"><p>Required root persistence.  Optional home persistence.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_scan_root_span"><span class="cheat">persist=scan,root</span></h5>
+<div class="paragraph"><p>Scan for a <tt>rootfs</tt> persistence file.  Optional root persistence.  Any
+<tt>homefs</tt> file will be ignored because home persistence is disabled.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_span_class_cheat_persist_scan_span_2"><span class="cheat">persist=scan</span></h5>
+<div class="paragraph"><p>Scan for <tt>rootfs</tt> and <tt>homefs</tt> persistence files. Both root and
+home persistence are optional.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_persistence_device">The Persistence Device</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The default persistence device is the same device the linuxfs file was found
+on.  We suggest that you always use this default when possible.  For cases
+where that is not possible, you have to same options for specifying the
+persistence device as are available for specify the boot device.  They
+abbreviate in the same way too, with "persist" collapsing to "p".</p></div>
+<div class="sect3">
+<h4 id="persistdev"><span class="cheat">persistdev</span></h4>
+<div class="paragraph"><p>The name of the device holding the persistence file(s).
+Abbreviation: <span class="cheat">pdev</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="persistlabel"><span class="cheat">persistlabel</span></h4>
+<div class="paragraph"><p>The label of the device holding the persistence file(s).
+Abbreviations: <span class="cheat">plabel</span> and <span class="cheat">plab</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="persistuuid"><span class="cheat">persistuuid</span></h4>
+<div class="paragraph"><p>The UUID of the device holding the persistence file(s).
+Abbreviation: <span class="cheat">puuid</span>.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_persistence_directory">The Persistence Directory</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The default persistence directory is the same directory that holds the
+linuxfs file even if it is on a different device.  We suggest that you stick
+with this default <em>except</em>  when that directory does not include the antiX
+version (or a reasonable abbreviation).</p></div>
+<div class="sect3">
+<h4 id="persistdir"><span class="cheat">persistdir</span></h4>
+<div class="paragraph"><p>The directory in which the rootfs and/or homefs files can be found.  The
+default is to use the same directory that the linuxfs file was found in even
+if it is on a different device. Abbreviation: <span class="cheat">pdir</span>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="persistretry"><span class="cheat">persistretry</span></h4>
+<div class="paragraph"><p>The number of times to retry mounting the persistent files device.
+Abbreviation: <span class="cheat">pretry</span>.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_details_for_developers">Details for Developers</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The only work that needs to be done for home persistence is the creation of
+the <tt>homefs</tt> file and the addition of the appropriate boot parameters to
+Grub menu entries.  This is probably best done at LiveUSB creation time, but
+it can also be done after the fact from within antiX.</p></div>
+<div class="paragraph"><p>In contrast, root persistence requires that a program be run in order to save
+changes made in RAM back to the file system in the <tt>rootfs</tt> file.  The best
+tool for this job is the <tt>rsync</tt> program which update the <tt>rootfs</tt> file
+system as efficiently as possible.  At its core, this saving back to <tt>rootfs</tt>
+requires just one command:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># rsync -a --delete --exclude tmp --exclude var/tmp /aufs-ram /persist-root</tt></pre>
+</div></div>
+<div class="paragraph"><p>But as with the remastering, there are many details to take care of.
+If persistent root was successfully enabled then a <tt>persistent-root.conf</tt>
+configuration file should show up in the <tt>/live-config</tt> directory.  This
+file should supply all the information needed to sync changes back to the
+<tt>rootfs</tt> file.</p></div>
+<div class="listingblock">
+<div class="title">Example <tt>/live-config/persistent-root.conf</tt> file</div>
+<div class="content">
+<pre><tt>PERSIST_MP="/boot-dev"
+ROOTFS_MP="/persist-root"
+AUFS_RAM_MP="/aufs-ram"
+PERSIST_FILE="/boot-dev/antiX-12/rootfs"
+PERSIST_DEV="/dev/sdb2"</tt></pre>
+</div></div>
+<div class="paragraph"><p>Here is a bare-bones script for saving persistent root changes:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>#!/bin/bash
+
+conf_file=/live-config/persistent-root.conf
+
+#--- Read variables from conf_file
+[-f $conf_file ] || exit
+source $conf_file
+
+#--- Mount device holding rootfs file if needed
+mountpoint -q $PERSIST_MP || mount $PERSIST_DEV $PERSIST_MP
+
+#--- remount read-write if needed
+mnt_opts=$(grep "^$PERSIST_DEV " /proc/mounts | cut -d" " -f4)
+case ",$mnt_opts," in
+    ,rw,) ;;
+       *) mount -o remount,rw $PERSIST_MP;;
+esac
+
+#--- Mount the rootfs file if needed
+mountpoint -q $ROOTFS_MP || mount -o loop $PERSIST_FILE $ROOTFS_MP
+
+#--- now do the rsync
+rsync -a --delete --exclude tmp --exclude var/tmp $AUFS_RAM_MP $ROOTFS_MP
+
+umount $ROOTFS_MP</tt></pre>
+</div></div>
+<div class="paragraph"><p>Of course, a real-world script will need more error checking and more
+verbose output (at least for testing).  For example, a simple check of
+the size of the <tt>rootfs</tt> file system and the amount of space used on
+the <tt>/aufs-ram</tt> file system should be made to make sure there is enough
+space on <tt>rootfs</tt> before starting the rsync.  If there is not enough
+space then a larger <tt>rootfs</tt> file could be created.  The old <tt>rootfs</tt>
+could either be deleted or saved as a backup or snapshot.</p></div>
+<div class="sect2">
+<h3 id="_when_to_synchronize_the_tt_root_fs_tt_file">When to Synchronize the <tt>root.fs</tt> File</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The most obvious time to synchronize the <tt>rootfs</tt> file is during shutdown.
+This should probably be the default, but it&#8217;s not the only option.  Users
+might want to manual sync before shutdown or they might want to be asked
+whether they want to sync at shutdown.  These three options can be thought
+of as: "automatic", "manual", and "semi-automatic".  Both the manual and
+semi-automatic synchronization should be implemented with a GUI.  Even the
+automatic saving could be done in a GUI before X windows is shut down and
+before the user is logged out of their desktop session.  A GUI would remind
+the user that their changes are being saved and would also make it easier
+for the user to deal with error conditions such as not having enough room
+on the <tt>rootfs</tt> device for saving all the changes.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_peristent_root_and_remastering_issues">Peristent root and Remastering Issues</h3>
+<p><span class="comment"> This has not been implemented yet</span></p>
+</div>
+<div class="sect2">
+<h3 id="_creating_persistence_files">Creating Persistence Files</h3>
+<div class="paragraph"><p><div class="top-link">[<a class="top-link" href="#banner-text">top</a>]</div></p></div>
+<div class="paragraph"><p>The <tt>homefs</tt> and <tt>rootfs</tt> persistence files are straightforward to create
+once you know the trick.  You just need to decide how large you want to make
+the file and what file system you want to use on it.  We suggest using ext2,
+ext3, or ext4.  If file(s) will be on a USB stick then you should consider
+turning journaling off if using ext3 or ext4 to prevent shortening the life
+of the USB stick.  Enabling extents in ext4 might increase efficacy,
+especially on USB sticks.  Here we will show how to create a 500 Meg rootfs
+file:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ SIZE=500
+$ dd if=/dev/zero of=rootfs bs=1M count=0 seek=$SIZE
+$ mkfs.ext4 -q -m 0 -O ^has_journal -F rootfs</tt></pre>
+</div></div>
+<div class="paragraph"><p>You need root privileges in order to mount this for testing:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ sudo mkdir -p /mnt/loop
+$ sudo mount -o loop rootfs /mnt/loop
+$ df -h /mnt/loop
+Filesystem            Size  Used Avail Use% Mounted on
+/home/work/rootfs    485M  2.3M  482M   1% /mnt/loop
+$ sudo umount /mnt/loop</tt></pre>
+</div></div>
+<div class="paragraph"><p>Note that even with journaling disabled and with the reserved block percentage
+(<tt>-m</tt>) set to zero, not all of the space in the file is available.  That&#8217;s
+because there is inevitable overhead in the filesystem.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:59 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

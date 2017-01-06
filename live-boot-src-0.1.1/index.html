@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB Guide to antiX LiveCDs and LiveUSBs</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr class="chosen"><td><a href="index.html">Home</a></td><td>&#187;</td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr><td><a href="debug.html">Debugging</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">Guide to antiX LiveCDs and LiveUSBs</div>
+</div>
+<div id="body-text">
+<div class="sect1">
+<h2 id="top">Audience</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The intended audience for this guide includes:</p></div>
+<div class="ulist compact" id="audience"><ul>
+<li>
+<p>
+People who write scripts for frugal installs and LiveUSBs
+</p>
+</li>
+<li>
+<p>
+People who will write tools for user to access persistence and live-remastering
+</p>
+</li>
+<li>
+<p>
+Developers who want to use the new <span class="antix-text">anti<span class="antix-x">X</span></span> linuxrc with other distributions
+</p>
+</li>
+<li>
+<p>
+Adventurous and/or curious beta-testers
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This is meant to be the definitive guide to all the features and options in
+the new linuxrc bootstrap script.  It probably contains way too much
+information for most end-users, especially newcomers.  Ideally, this guide
+will be augmented with information for end users, or a second guide will be
+created that is specifically designed for end users.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_8217_s_new">What&#8217;s New?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The linuxrc bootstrap script (that lives inside the <tt>initrd.gz</tt> file) was
+almost totally rewritten.  We now use a non-ancient version of <a href="glossary.html#BusyBox" class="gloss-ref">
+BusyBox
+</a>
+(which, combined with more modern Linux kernels) gives us access to new and
+better tools.  The Knoppix linuxrc script provided great inspiration for a lot
+of this.</p></div>
+<div class="paragraph"><p>Some of the more prominent new features include:</p></div>
+<div class="sect3">
+<h4 id="whats-new">Faster, more robust booting</h4>
+<div class="paragraph"><p>Previously the <span class="cheat">rootdelay</span> option was used and suggested as a fix for when
+linuxrc is unable to find the squashfs program and the user is dropped to a
+limited shell.  With the new linuxrc the rootdelay option should only be needed
+if the: <span class="welcome">Welcome to <span class="to-antix">AntiX</span>!</span> message does not appear.   In addition, you can now specify
+the boot partition by disk-label or by disk-UUID.  There should be fewer
+failures to boot Live Media and when a boot does fail, the steps to fix it
+should be easy and straightforward.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_better_and_faster_root_persistence">Better and faster root persistence</h4>
+<div class="paragraph"><p>Root and home persistence files can now reside on the boot device, the same
+device that holds the linuxfs file.  This means you can create a full featured
+LiveUSB (or LiveHD) using only one partition even with persistence and
+live-remastering.  We can also scan all read-write devices for persistence
+files which makes it easy to add persistence to a liveCD as long as there is
+some read-write partition available to hold the persistence file(s).</p></div>
+</div>
+<div class="sect3">
+<h4 id="_integrated_md5_checking">Integrated md5 checking</h4>
+<div class="paragraph"><p>If the Live Media creator (person or program) adds .md5 files in the same
+directory as the linuxfs file or the same directory as the .iso file (in
+fromiso mode) then if the <a href="debug.html#check"><span class="cheat">check</span></a> boot parameter
+is given, every file that has a matching .md5 file will be checked and the
+boot will be interrupted if any check fails.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_live_remastering">Live remastering</h4>
+<div class="paragraph"><p>Remastering involves (perhaps among other things) the creation of a new
+linuxfs file that reflects change that have been made to the system (usually
+the addition or deletion of packages).  We can now offer users "one click"
+live remastering (for LiveUSBs and LiveHDs) that will create a new linuxfs
+file at the touch of a button and automatically use that linuxfs file on the
+next reboot.  The user will always have the option to rollback the change
+even if the new linuxfs file is corrupted and fails to boot.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_ejecting_livecd">Ejecting LiveCD</h4>
+<div class="paragraph"><p>And, of course, we also fixed the problem with ejecting the LiveCD.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:57 EEST
+</div>
+</div>
+</div>
+</body>
+</html>

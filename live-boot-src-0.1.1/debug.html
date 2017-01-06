@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>antiX LiveCD/USB How to troubleshoot the boot process</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="begin.html">Beginners</a></td><td> </td></tr>
+  <tr><td><a href="boot.html">Booting</a></td><td> </td></tr>
+  <tr><td><a href="live_usb.html">LiveUSB</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="debug.html">Debugging</a></td><td>&#187;</td></tr>
+  <tr><td><a href="remaster.html">Remastering</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="personalize.html">Personalize</a></td><td> </td></tr>
+  <tr><td><a href="optimize.html">Optimize</a></td><td> </td></tr>
+  <tr><td><a href="glossary.html">Glossary</a></td><td> </td></tr>
+  <tr><td><a href="alpha-index.html">Option&nbsp;Index</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">LiveCD/USB Guide</div>
+  <div id="banner-subtitle">How to troubleshoot the boot process</div>
+</div>
+<div id="body-text">
+<div class="sect1">
+<h2 id="top">Troubleshooting the Boot Process</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="boot-options">Boot Options for Debugging</h3>
+<div class="sect3">
+<h4 id="bp"><span class="cheat">bp</span></h4>
+<div class="paragraph"><p>set a breakpoint in linuxrc script</p></div>
+</div>
+<div class="sect3">
+<h4 id="check"><span class="cheat">check</span></h4>
+<div class="paragraph"><p>check the md5 sum for linuxfs and iso files</p></div>
+<div class="paragraph"><p><a name="db+"></a></p></div>
+</div>
+<div class="sect3">
+<h4 id="_span_class_cheat_db_span"><span class="cheat">db+</span></h4>
+<div class="paragraph"><p>enable limited linuxrc debugging</p></div>
+</div>
+<div class="sect3">
+<h4 id="db-"><span class="cheat">db-</span></h4>
+<div class="paragraph"><p>disable limited linuxrc debugging</p></div>
+</div>
+<div class="sect3">
+<h4 id="debug"><span class="cheat">debug</span></h4>
+<div class="paragraph"><p>puts kernel in debug mode</p></div>
+</div>
+<div class="sect3">
+<h4 id="delay"><span class="cheat">delay</span></h4>
+<div class="paragraph"><p>wait "delay" seconds before looking for the linuxfs file</p></div>
+</div>
+<div class="sect3">
+<h4 id="mem"><span class="cheat">mem</span></h4>
+<div class="paragraph"><p>pretend system has less memory</p></div>
+</div>
+<div class="sect3">
+<h4 id="nodeb"><span class="cheat">nodeb</span></h4>
+<div class="paragraph"><p>don&#8217;t install .deb files from the deb/ subdirectory</p></div>
+</div>
+<div class="sect3">
+<h4 id="noetc"><span class="cheat">noetc</span></h4>
+<div class="paragraph"><p>don&#8217;t load /etc files from the etc/ subdirectory</p></div>
+</div>
+<div class="sect3">
+<h4 id="pk"><span class="cheat">pk</span></h4>
+<div class="paragraph"><p>control kernel messages during bootstrap</p></div>
+</div>
+<div class="sect3">
+<h4 id="pki"><span class="cheat">pki</span></h4>
+<div class="paragraph"><p>control kernel messages at start of init</p></div>
+</div>
+<div class="sect3">
+<h4 id="quiet"><span class="cheat">quiet</span></h4>
+<div class="paragraph"><p>turn off many kernel messages</p></div>
+</div>
+<div class="sect3">
+<h4 id="rootdelay"><span class="cheat">rootdelay</span></h4>
+<div class="paragraph"><p>wait this many seconds before booting</p></div>
+</div>
+<div class="sect3">
+<h4 id="verbose"><span class="cheat">verbose</span></h4>
+<div class="paragraph"><p>the level of verbosity</p></div>
+</div>
+<div class="sect3">
+<h4 id="wait"><span class="cheat">wait</span></h4>
+<div class="paragraph"><p>wait "wait" seconds before running init</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.1.1
+Last updated 2012-07-10 00:16:56 EEST
+</div>
+</div>
+</div>
+</body>
+</html>
